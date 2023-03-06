@@ -16,7 +16,8 @@ class RequestHandler(BaseHTTPRequestHandler):
         s.end_headers()
 
         html = route(s.path)
-        s.wfile.write(bytes(html))
+        print(html)
+        s.wfile.write(bytes(html, "utf-8"))
 
     def do_POST(s):
         s.send_response(200)
@@ -24,7 +25,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         s.end_headers()
         
         html = route(s.path)
-        s.wfile.write(bytes(html))
+        s.wfile.write(bytes(html, "utf-8"))
  
 if __name__ == '__main__':
     server_class = HTTPServer
