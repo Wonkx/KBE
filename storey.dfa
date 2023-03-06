@@ -254,3 +254,20 @@ DefClass: Storey1 (ug_base_part);
   Target; {base:};
   };
   
+  
+  (Child) stairs: {
+  class; Stairs;
+  stairOrigin; storeyOrigin: + vector(storeyLength:-2.5, storeyWidth:/2-1, 0.3);
+  };
+  
+    (Child) stairshole: {
+  class; ug_block;
+  Length; 1.7;
+  Width; 2;
+  Height; 0.3;
+  Origin; storeyOrigin: + vector(storeyLength:-2, storeyWidth:/2-1, 0);
+  Operation; Subtract;
+  Target; {base:};
+  };
+  
+  
