@@ -30,14 +30,16 @@ def get_html_as_string(path: str) -> str:
     return string
 
 
-def landing() -> str:
+def landing(**kwargs: dict[str, Any]) -> str:
     html = get_html_as_string("landing")
     return html
 
-def builder() -> str:
+def builder(**kwargs: dict[str, Any]) -> str:
     html = get_html_as_string("builder")
     context = {"page_title": "builder", "heading": "heading"}
     return insert_parameters(html, context)
 
-def inhabitant() -> str:
-    pass
+def inhabitant(**kwargs: dict[str, Any]) -> str:
+    html = get_html_as_string("inhabitant")
+    context = {"page_title": "Inhabitant", "url": kwargs["url"]}
+    return insert_parameters(html, context)

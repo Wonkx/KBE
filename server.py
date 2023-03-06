@@ -15,7 +15,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         s.send_header("Content-type", "text/html")
         s.end_headers()
 
-        html = route(s.path)
+        html = route(s.path, HOST_NAME=HOST_NAME, PORT_NUMBER=PORT_NUMBER)
         print(html)
         s.wfile.write(bytes(html, "utf-8"))
 
@@ -24,7 +24,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         s.send_header("Content-type", "text/html")
         s.end_headers()
         
-        html = route(s.path)
+        html = route(s.path, HOST_NAME=HOST_NAME, PORT_NUMBER=PORT_NUMBER)
         s.wfile.write(bytes(html, "utf-8"))
  
 if __name__ == '__main__':
