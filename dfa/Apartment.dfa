@@ -1,0 +1,6 @@
+#! UG/KF 17.0
+DefClass: Apartment (ug_base_part);
+(Number Parameter) RoomHeight: 1000;
+(Number Parameter) RoomWidth: 1000;
+(Number Parameter) RoomLength: 1500;
+(Point Parameter) RoomOrigin: point(0,0,0);

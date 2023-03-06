@@ -1,0 +1,45 @@
+#! UG/KF 17.0
+DefClass: Wall (ug_base_part);
+(Number Parameter) WallHeight: 96;
+(Number Parameter) WallWidth: 120;
+(Number Parameter) WallThickness: 4;
+(Point Parameter) WallOrigin: point(0,0,0);
+(Number Parameter) DoorOffset: 12;
+(Number Parameter) WindowOffset: WallWidth:/2;
+(Boolean Parameter) Door?: FALSE;
+(Boolean Parameter) Window?: TRUE;
+
+(Child) base: {
+  class; ug_block;
+  Length; WallThickness:;
+  Width; WallWidth:;
+  Height; WallHeight:;
+  Origin; WallOrigin:;
+  };
+(Child) opening: {
+  class; if (Door?: = TRUE) then ug_block else NullDesign;
+  Height; door:DoorHeight: + .625;
+  Width; door:DoorWidth: + .25;
+  Length; WallThickness:;
+  Origin; WallOrigin: + vector(0,DoorOffset:-.125,0);
+  Operation; Subtract;
+  Target; {base:};
+  };
+(Child) door: {
+  class; if (Door?: = TRUE) then Door else NullDesign;
+  DoorOrigin;WallOrigin: +
+  vector(WallThickness:-child:DoorThickness:,
+  DoorOffset:,
+  .5);
+  }; 
+  
+(Child) window: {
+  class; if (Window?: = TRUE) then Window else NullDesign;
+  Origin; WallOrigin:+
+  vector(WallThickness:-child:FrameThickness:,
+  WindowOffset:,
+  WallHeight:/2);
+  referenceFrame; frameXY(child:Origin:, vector(0, 0, 1), vector(0, 1, 0));
+  base, base:;
+  
+  };

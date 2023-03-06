@@ -1,0 +1,49 @@
+#! UG/KF 17.0
+DefClass: Window (ug_base_part);
+(Number Parameter) WindowDepth: 4;
+(Point Parameter) Origin: Point(0, 0, 0);
+(Number Parameter) FrameThickness: 0.4;
+
+
+(Child) sec1: {
+class, Sector;
+height, WindowDepth:;
+angle, 90;
+radius, 10;
+referenceFrame; framexy(Origin:+Vector(FrameThickness:/2, FrameThickness:/2, 0),
+  vector(1,0,0),vector(0,1,0));
+base, base:;
+};
+
+(Child) sec2: {
+class, Sector;
+height, WindowDepth:;
+angle, 90;
+radius, 10;
+referenceFrame; framexy(Origin:+Vector(-FrameThickness:/2, FrameThickness:/2, 0),
+  vector(0,1,0),vector(-1,0,0));
+base, base:;
+};
+
+
+
+(Child) sec3: {
+class, Sector;
+height, WindowDepth:;
+angle, 90;
+radius, 10;
+referenceFrame; framexy(Origin:+Vector(-FrameThickness:/2, -FrameThickness:/2, 0),
+  vector(-1,0,0),vector(0,-1,0));
+base, base:;
+};
+
+
+(Child) sec4: {
+class, Sector;
+height, WindowDepth:;
+angle, 90;
+radius, 10;
+referenceFrame; framexy(Origin:+Vector(FrameThickness:/2, -FrameThickness:/2, 0),
+  vector(0,-1,0),vector(1,0,0));
+base, base:;
+};

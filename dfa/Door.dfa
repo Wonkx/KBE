@@ -1,0 +1,46 @@
+#! UG/KF 17.0
+DefClass: Door (ug_base_part);
+(Number Parameter Modifiable) DoorHeight: 84;
+(Number Parameter) DoorWidth: DoorHeight: * 0.4;
+(Number Parameter) DoorThickness: 2.5;
+(Point Parameter) DoorOrigin: point(0,0,0);
+(Child) base: {
+  class; ug_block;
+  Length; DoorThickness:;
+  Width; DoorWidth:;
+  Height; DoorHeight:;
+  Origin; DoorOrigin:;
+ };
+(Child) window1: {
+  class; ug_block;
+  Length; DoorThickness:;
+  Width; DoorWidth: / 3.0;
+  Height; DoorHeight: * 0.4;
+  Origin; DoorOrigin: +
+  vector(0,
+  DoorWidth:/9.0,
+  DoorHeight:-child:height:-DoorThickness:);
+  Operation; Subtract;
+  Target; {base:};
+  };
+(Child) window2: {
+  class; ug_block;
+  Length; DoorThickness:;
+  Width; DoorWidth: / 3.0;
+  Height; DoorHeight: * 0.4;
+  Origin; DoorOrigin: +
+  vector(0,
+  5.0*DoorWidth:/9.0,
+  DoorHeight:-child:height:-DoorThickness:);
+  Operation; Subtract;
+  Target; {base:};
+  };
+(Child) knob: {
+  class; ug_cylinder;
+  Origin; DoorOrigin: +
+  vector(DoorThickness:,
+  child:diameter:*1.5,
+  DoorHeight:/2.0);
+  Direction; Vector(1,0,0);
+  Diameter; DoorHeight: * 0.04;
+  };
