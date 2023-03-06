@@ -67,7 +67,8 @@ def setup() -> None:
                                         id integer PRIMARY KEY,
                                         apartmentCount integer NOT NULL,
                                         size integer NOT NULL,
-                                        balcony integer NOT NULL
+                                        balcony integer NOT NULL,
+                                        email text NOT NULL
                                     ); """
 
     # create a database connection
@@ -75,8 +76,6 @@ def setup() -> None:
 
     if conn is not None:
         create_table(conn, inhabitant_submissions_sql_table)
-        create_submission(conn, (3, 60, True))
-        create_submission(conn, (4, 50, False))
         select_all_tasks(conn)
     else:
         print("Error! cannot create the database connection.")
