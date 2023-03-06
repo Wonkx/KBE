@@ -1,0 +1,66 @@
+#! UG/KF 17.0
+DefClass: Storey (ug_base_part);
+(Number Parameter) storeyWallThickness: 0.3;
+(Number Parameter) storeyLength: 50;
+(Number Parameter) storeyWidth: 20;
+(Number Parameter) storeyHeight: 2;
+(Point Parameter) storeyOrigin: point(0,0,0);
+
+(Child) base: {
+  class; ug_block;
+  Length; storeyLength:;
+  Width; storeyWidth:;
+  Height; storeyHeight:;
+  Origin; storeyOrigin:;
+ };
+
+(Child) corridor: {
+  class; ug_block;
+  Length; storeyLength:-2*storeyWallThickness:;
+  Width; 2;
+  Height; storeyHeight:-storeyWallThickness:;
+  Origin; Point(0.3, (storeyWidth:/2)-1, 0.3);
+  Operation; Subtract;
+  Target; {base:};
+  };
+  
+(Child) ap1: {
+	  class; ug_block;
+	  Length; (storeyLength:/2)-storeyWallThickness:*2;
+	  Width; (storeyWidth:)/2-storeyWallThickness:-1-storeyWallThickness:;
+	  Height; storeyHeight:-storeyWallThickness:;
+	  Origin; Point(storeyWallThickness:, storeyWallThickness:, storeyWallThickness:);
+	  Operation; Subtract;
+	  Target; {base:};
+  };
+  
+  (Child) ap2: {
+	  class; ug_block;
+	  Length; (storeyLength:/2)-storeyWallThickness:*2;
+	  Width; (storeyWidth:)/2-storeyWallThickness:-1-storeyWallThickness:;
+	  Height; storeyHeight:-storeyWallThickness:;
+	  Origin; Point(storeyLength:/2+0.3, storeyWallThickness:, storeyWallThickness:);
+	  Operation; Subtract;
+	  Target; {base:};
+  };
+  
+(Child) ap3: {
+	  class; ug_block;
+	  Length; (storeyLength:/2)-storeyWallThickness:*2;
+	  Width; (storeyWidth:)/2-storeyWallThickness:-1-storeyWallThickness:;
+	  Height; storeyHeight:-storeyWallThickness:;
+	  Origin; Point(storeyWallThickness:, 11.3, storeyWallThickness:);
+	  Operation; Subtract;
+	  Target; {base:};
+  };
+  
+  (Child) ap4: {
+	  class; ug_block;
+	  Length; (storeyLength:/2)-storeyWallThickness:*2;
+	  Width; (storeyWidth:)/2-storeyWallThickness:-1-storeyWallThickness:;
+	  Height; storeyHeight:-storeyWallThickness:;
+	  Origin; Point(storeyLength:/2+0.3, 11.3, storeyWallThickness:);
+	  Operation; Subtract;
+	  Target; {base:};
+  };
+  
