@@ -204,3 +204,53 @@ DefClass: Storey1 (ug_base_part);
   Target; {balcony:};
   };
   
+ (Child) door: {
+  class; ug_block;
+  Length; 1;
+  Width; 0.3;
+  Height; 1.5;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-3, storeyWidth:/2-1.3, 0.3);
+  Operation; Subtract;
+  Target; {base:};
+  };
+  
+  (Child) doorbath: {
+  class; ug_block;
+  Length; 1;
+  Width; 1;
+  Height; 1.5;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-10, 4.5, 0.3);
+  Operation; Subtract;
+  Target; {bathroom:};
+  };
+  
+    (Child) doorbed2: {
+  class; ug_block;
+  Length; 1;
+  Width; 1;
+  Height; 1.5;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-6, 6, 0.3);
+  Operation; Subtract;
+  Target; {bedroom2:};
+  };
+  
+    (Child) doorbed1: {
+  class; ug_block;
+  Length; 1;
+  Width; 1;
+  Height; 1.5;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-3, 6, 0.3);
+  Operation; Subtract;
+  Target; {bedroom1:};
+  };
+  
+  (Child) doorbacony: {
+  class; ug_block;
+  Length; 1;
+  Width; 1;
+  Height; 1.5;
+  Origin; storeyOrigin: + vector(10, 0, 0.3);
+  Operation; Subtract;
+  Target; {base:};
+  };
+  
