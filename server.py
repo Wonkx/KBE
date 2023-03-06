@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urls import route
+from DbHandler import setup
 
 HOST_NAME = '127.0.0.1' 
 PORT_NUMBER = 1234 # Maybe set this to 1234
@@ -30,6 +31,8 @@ class RequestHandler(BaseHTTPRequestHandler):
 if __name__ == '__main__':
     server_class = HTTPServer
     httpd = server_class((HOST_NAME, PORT_NUMBER), RequestHandler)
+    
+    setup()
     
     try:
         httpd.serve_forever()
