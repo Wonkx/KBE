@@ -1,8 +1,9 @@
 import os
 import sqlite3
 from sqlite3 import Error
+from typing import Literal
 
-def create_connection(db_file):
+def create_connection(db_file: str) -> sqlite3.Connection:
     """ create a database connection to the SQLite database
         specified by db_file
     :param db_file: database file
@@ -17,7 +18,7 @@ def create_connection(db_file):
 
     return conn
 
-def create_table(conn, create_table_sql):
+def create_table(conn: sqlite3.Connection, create_table_sql: Literal) -> None:
     """ create a table from the create_table_sql statement
     :param conn: Connection object
     :param create_table_sql: a CREATE TABLE statement
@@ -29,7 +30,7 @@ def create_table(conn, create_table_sql):
     except Error as e:
         print(e)
 
-def create_submission(conn, submission):
+def create_submission(conn: sqlite3.Connection, submission: list) -> int:
     """
     Create a new submission into the submissions table
     :param conn:
@@ -43,7 +44,7 @@ def create_submission(conn, submission):
     conn.commit()
     return cur.lastrowid
 
-def select_all_tasks(conn):
+def select_all_submissions(conn: sqlite3.Connection) -> None:
     """
     Query all rows in the submissions table
     :param conn: the Connection object
@@ -58,7 +59,7 @@ def select_all_tasks(conn):
         print(row)
 
 
-def setup():
+def setup() -> None:
     database_path = os.path.dirname(os.path.abspath(__file__))
     database_path += r"\kb.db"
 
