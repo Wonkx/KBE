@@ -9,6 +9,18 @@ DefClass: Building (ug_base_part);
   Height; 14;
   Origin; point(-1, 10, 0);
  };
+#+ 
+ <STOREYS>
+ 
+ So, the storey template may look as follows:
+ (Child) storey<STOREY_NUM>: {
+  class; Storey1;
+  storeyLengthLength; storeyLength:;
+  storeyWidthWidth; storeyWidth:;
+  storeyHeightHeight; storeyHeight:;
+  storeyOrigin; point(<STOREY_N_COORD>);
+ };
+#-
 
 (Child) storey1: {
   class; Storey1;
