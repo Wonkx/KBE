@@ -41,5 +41,6 @@ def builder(**kwargs: dict[str, Any]) -> str:
 
 def inhabitant(**kwargs: dict[str, Any]) -> str:
     html = get_html_as_string("inhabitant")
-    context = {"page_title": "Inhabitant", "url": kwargs["url"]}
+    url = "http://" + kwargs["HOST_NAME"] + ":" + kwargs["PORT_NUMBER"]
+    context = {"page_title": "Inhabitant", "url": url}
     return insert_parameters(html, context)
