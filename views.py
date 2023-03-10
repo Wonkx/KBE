@@ -29,6 +29,11 @@ def get_html_as_string(path: str) -> str:
 
     return string
 
+def confirm_kwargs(kwargs: dict[str, Any], requirements: list[str]) -> bool:
+    for kwarg in requirements:
+        if kwarg not in kwargs:
+            return False
+    return True
 
 def landing(**kwargs: dict[str, Any]) -> str:
     html = get_html_as_string("landing")
@@ -41,9 +46,8 @@ def builder(**kwargs: dict[str, Any]) -> str:
 
 def inhabitant(**kwargs: dict[str, Any]) -> str:
     required_kwargs = ["HOST_NAME", "PORT_NUMBER"]
-    for kwarg in required_kwargs:
-        if kwarg not in kwargs:
-            return landing(kwargs)
+    if not confirm_kwargs(kwargs, required_kwargs):
+        return landing(kawrgs)
 
     html = get_html_as_string("inhabitant")
     url = "http://" + kwargs["HOST_NAME"] + ":" + kwargs["PORT_NUMBER"]
