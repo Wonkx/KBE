@@ -29,22 +29,22 @@ def get_html_as_string(path: str) -> str:
 
     return string
 
-def confirm_kwargs(kwargs: dict[str, Any], requirements: list[str]) -> bool:
+def confirm_kwargs(kwargs: dict[str, any], requirements: list[str]) -> bool:
     for kwarg in requirements:
         if kwarg not in kwargs:
             return False
     return True
 
-def landing(**kwargs: dict[str, Any]) -> str:
+def landing(**kwargs: dict[str, any]) -> str:
     html = get_html_as_string("landing")
     return html
 
-def builder(**kwargs: dict[str, Any]) -> str:
+def builder(**kwargs: dict[str, any]) -> str:
     html = get_html_as_string("builder")
     context = {"page_title": "builder", "heading": "heading"}
     return insert_parameters(html, context)
 
-def inhabitant(**kwargs: dict[str, Any]) -> str:
+def inhabitant(**kwargs: dict[str, any]) -> str:
     required_kwargs = ["HOST_NAME", "PORT_NUMBER"]
     if not confirm_kwargs(kwargs, required_kwargs):
         return landing(kwargs)
