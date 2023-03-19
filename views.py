@@ -47,7 +47,7 @@ def builder(**kwargs: dict[str, Any]) -> str:
 def inhabitant(**kwargs: dict[str, Any]) -> str:
     required_kwargs = ["HOST_NAME", "PORT_NUMBER"]
     if not confirm_kwargs(kwargs, required_kwargs):
-        return landing(kawrgs)
+        return landing(kwargs)
 
     html = get_html_as_string("inhabitant")
     url = "http://" + kwargs["HOST_NAME"] + ":" + kwargs["PORT_NUMBER"]
