@@ -3,7 +3,7 @@ def insert_parameters(html: str, context: dict) -> str:
     # Inserting values
     for key, value in context.items():
         insert = "{% " + key + " %}"
-        if html.find(insert):
+        if html.find(insert) > -1:
             html = html.replace("{% " + key + " %}", value)
         else:
             print('Could not find "' + insert + '" in html')

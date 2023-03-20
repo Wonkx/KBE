@@ -1,0 +1,84 @@
+#! UG/KF 17.0
+DefClass: Stairs (ug_base_part);
+(Point Parameter) stairOrigin: point(0,0,0);
+
+(Child) base0: {
+  class; ug_block;
+  Length; 0.3;
+  Width; 1;
+  Height; 0.2;
+  Origin; stairOrigin: + vector(-0.3, 0, 0);
+ };
+
+(Child) base1: {
+  class; ug_block;
+  Length; 0.3;
+  Width; 1;
+  Height; 0.2;
+  Origin; stairOrigin: + vector(0, 0, 0.2);
+ };
+ 
+ (Child) base2: {
+  class; ug_block;
+  Length; 0.3;
+  Width; 1;
+  Height; 0.2;
+  Origin; stairOrigin: + vector(0.3, 0, 0.4);
+ };
+ 
+  (Child) base3: {
+  class; ug_block;
+  Length; 0.3;
+  Width; 1;
+  Height; 0.2;
+  Origin; stairOrigin: + vector(0.6, 0, 0.6);
+ };
+ 
+  (Child) base4: {
+  class; ug_block;
+  Length; 0.3;
+  Width; 1;
+  Height; 0.2;
+  Origin; stairOrigin: + vector(0.9, 0, 0.8);
+ };
+ 
+  (Child) base5: {
+  class; ug_block;
+  Length; 1;
+  Width; 1;
+  Height; 0.2;
+  Origin; stairOrigin: + vector(1.2, 0, 1);
+ };
+ 
+  (Child) base6: {
+  class; ug_block;
+  Length; 1;
+  Width; 1;
+  Height; 0.2;
+  Origin; stairOrigin: + vector(1.2, 1, 1.2);
+ };
+ 
+   (Child) base7: {
+  class; ug_block;
+  Length; 0.3;
+  Width; 1;
+  Height; 0.2;
+  Origin; stairOrigin: + vector(0.9, 1, 1.4);
+ };
+ 
+    (Child) base8: {
+  class; ug_block;
+  Length; 0.3;
+  Width; 1;
+  Height; 0.2;
+  Origin; stairOrigin: + vector(0.6, 1, 1.6);
+ };
+ 
+    (Child) base9: {
+  class; ug_block;
+  Length; 0.3;
+  Width; 1;
+  Height; 0.2;
+  Origin; stairOrigin: + vector(0.3, 1, 1.8);
+ };
+ 

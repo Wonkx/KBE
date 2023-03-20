@@ -1,0 +1,26 @@
+#! UG/KF 17.0
+DefClass: BalconyFlip (ug_base_part);
+(Number Parameter) balconyLength: 10;
+(Number Parameter) balconyWidth: 3;
+(Number Parameter) balconyHeight: 2.4;
+(Number Parameter) wallThickness: 0.4;
+(Point Parameter) balconyOrigin: point(0,0,0);
+
+
+ (Child) outline: {
+  class; ug_block;
+  Length; balconyLength:;
+  Width; balconyWidth:;
+  Height; balconyHeight:;
+  Origin; balconyOrigin:;
+  };
+  
+ (Child) sub: {
+  class; ug_block;
+  Length; balconyLength: - 2*wallThickness:;
+  Width; balconyWidth: - wallThickness:;
+  Height; balconyHeight: - wallThickness:;
+  Origin; balconyOrigin: + vector(wallThickness:, 0, wallThickness:);
+  Operation; Subtract;
+  Target; {outline:};
+  };
