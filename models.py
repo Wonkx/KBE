@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 
 def insert_parameters(dfa: str, parameters: dict) -> str:
 
@@ -33,9 +33,11 @@ class Room:
     roomWidth: int = 10
     wallThickness: float = 0.3
     roomOrigin: str = "point(0,0,0)"
-
+    
     def to_knowledge_fusion(self) -> str:
         dfa = get_dfa_as_string(self.__class__.__name__)
+        params = dict((field.name, getattr(self, field.name)) for field in fields(self))
+        return insert_parameters(dfa, params)
 
 
 
