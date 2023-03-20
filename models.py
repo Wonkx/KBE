@@ -17,7 +17,7 @@ def insert_parameters(dfa: str, parameters: dict) -> str:
 
 def get_dfa_as_string(path: str) -> str:
 
-    path = "new_DFA/" + path
+    path = "dfa/" + path
     if (path[-4:].lower() != ".dfa"):
         path += ".dfa"
 
