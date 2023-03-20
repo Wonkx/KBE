@@ -6,8 +6,8 @@ def route(path: str, **kwargs: dict[str, any]) -> str:
 
     match path:
         case "builder":
-            return builder(kwargs)
+            return builder(**kwargs)
         case "inhabitant":
-            return inhabitant(kwargs)
+            return inhabitant(**kwargs)
         case _:
-            return landing(kwargs)
+            return landing(**kwargs)
