@@ -39,8 +39,6 @@ class Room:
         params = dict((field.name, getattr(self, field.name)) for field in fields(self))
         return insert_parameters(dfa, params)
 
-
-
 @dataclass
 class Apartment:
     apartmentLength: int = 50
@@ -51,6 +49,12 @@ class Apartment:
     bathrooms: int = 2
     balcony: float = 0.3
     apartmentOrigin: str = "point(0,0,0)"
+
+    def add_rooms(rooms: list[Room]) -> None:
+
+        for room in rooms:
+            #self.rooms = 
+            pass
 
     def to_knowledge_fusion(self) -> str:
         pass
