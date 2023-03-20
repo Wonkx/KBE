@@ -1,5 +1,17 @@
 from dataclasses import dataclass
 
+def get_dfa_as_string(path: str) -> str:
+
+    path = "new_DFA/" + path
+    if (path[-4:].lower() != ".dfa"):
+        path += ".dfa"
+
+    dfa = open(path, "r")
+    string = dfa.read()
+    dfa.close()
+
+    return string
+
 @dataclass
 class Room:
     roomLength: int = 10
