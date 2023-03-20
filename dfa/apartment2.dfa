@@ -1,0 +1,62 @@
+#! UG/KF 17.0
+DefClass: Apartment2 (ug_base_part);
+(Number Parameter) apartmentLength: 50;
+(Number Parameter) apartmentWidth: 30;
+(Number Parameter) apartmentHeight: 2.4;
+(Number Parameter) wallThickness: 0.3;
+(Number Parameter) bedrooms: 2;
+(Number Parameter) bathrooms: 2;
+(Number Parameter) balconey: 0.3;
+(Point Parameter) apartmentOrigin: point(0,0,0);
+
+  (Child) outline: {
+  class; ug_block;
+  Length; apartmentLength:;
+  Width; apartmentWidth:;
+  Height; apartmentHeight:;
+  Origin; apartmentOrigin:;
+  };
+  
+  (Child) sub: {
+  class; ug_block;
+  Length; apartmentLength: - 2*wallThickness:;
+  Width; apartmentWidth: - 2*wallThickness:;
+  Height; apartmentHeight:;
+  Origin; apartmentOrigin: + vector(wallThickness:, wallThickness:, 0);
+  Operation; Subtract;
+  Target; {outline:};
+  };
+  
+  (Child) door: {
+  class; ug_block;
+  Length; 1;
+  Width; wallThickness:;
+  Height; 1.9;
+  Origin; apartmentOrigin: + vector(apartmentLength:/2 - 1/2, 0, 0);
+  Operation; Subtract;
+  Target; {outline:};
+  };
+  
+  (Child) room1: {
+  class; ApartmentRoom2;
+  roomLength; 10;
+  roomWidth; 10;
+  roomHeight; 2.4;
+  roomOrigin; apartmentOrigin: + vector(apartmentLength: -10, apartmentWidth: - child:roomWidth:, 0);
+  };
+  
+  (Child) balc: {
+  class; BalconyFlip;
+  balconyLength; 5;
+  balconyWidth; 3;
+  balconyHeight; 1;
+  balconyOrigin; apartmentOrigin: + vector(0, apartmentWidth: , -0.4);
+  };
+  
+  (Child) kitchen: {
+  class; Kitchen2;
+  counterLegth; 4;
+  counterWidth; 1;
+  kitchenOrigin; apartmentOrigin: + vector(wallThickness:, wallThickness: , 0);
+  };
+  

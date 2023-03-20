@@ -1,0 +1,70 @@
+#! UG/KF 17.0
+DefClass: Storey2 (ug_base_part);
+(Number Parameter) storeyWallThickness: 0.3;
+(Number Parameter) storeyLength: 60;
+(Number Parameter) storeyWidth: 42;
+(Number Parameter) storeyHeight: 2.4;
+(Number Parameter) storeyFloorThickness: 0.4;
+(Number Parameter) wallThickness: 0.3;
+(Number Parameter) corridorWidth: 2;
+
+(Point Parameter) storeyOrigin: point(0,0,0);
+
+  
+(Child) ap1: {
+	  class; Apartment1;
+	  apartmentLength; storeyLength:/2;
+	  apartmentWidth; (storeyWidth:-2)/2;
+	  apartmentHeight; 2.4;
+	  apartmentOrigin; storeyOrigin: + vector(0, 0, storeyFloorThickness:);
+  };
+ 
+ (Child) ap2: {
+	  class; Apartment2;
+	  apartmentLength; storeyLength:/2;
+	  apartmentWidth; (storeyWidth:-2)/2;
+	  apartmentHeight; 2.4;
+	  apartmentOrigin; storeyOrigin: + vector(0, storeyWidth:/2 + corridorWidth:/2, storeyFloorThickness:);
+  };
+ 
+ (Child) ap3: {
+	  class; Apartment3;
+	  apartmentLength; storeyLength:/2;
+	  apartmentWidth; (storeyWidth:-2)/2;
+	  apartmentHeight; 2.4;
+	  apartmentOrigin; storeyOrigin: + vector(storeyLength:/2, storeyWidth:/2 + corridorWidth:/2, storeyFloorThickness:);
+  };
+ 
+ (Child) ap4: {
+	  class; Apartment4;
+	  apartmentLength; storeyLength:/2;
+	  apartmentWidth; (storeyWidth:-2)/2;
+	  apartmentHeight; 2.4;
+	  apartmentOrigin; storeyOrigin: + vector(storeyLength:/2, 0, storeyFloorThickness:);
+  };
+ 
+  (Child) leftWall: {
+  class; ug_block;
+  Length; wallThickness:;
+  Width; 2;
+  Height; storeyHeight:;
+  Origin; storeyOrigin: + vector(0, ap1:apartmentWidth:, storeyFloorThickness:);
+  };
+  
+  (Child) rightWall: {
+  class; ug_block;
+  Length; wallThickness:;
+  Width; 2;
+  Height; storeyHeight:;
+  Origin; storeyOrigin: + vector(ap1:apartmentLength: + ap4:apartmentLength: - wallThickness:, ap1:apartmentWidth:, storeyFloorThickness:);
+  };
+  
+  
+  (Child) floor: {
+  class; ug_block;
+  Length; storeyLength:;
+  Width; storeyWidth:;
+  Height; storeyFloorThickness:;
+  Origin; storeyOrigin:;
+  };
+  

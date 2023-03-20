@@ -1,0 +1,30 @@
+#! UG/KF 17.0
+DefClass: Kitchen2 (ug_base_part);
+(Number Parameter) counterWidth: 1;
+(Number Parameter) counterLength: 4;
+(Point Parameter) kitchenOrigin: point(0,0,0);
+
+ (Child) counter1: {
+  class; ug_block;
+  Length; counterWidth:;
+  Width; counterLength:;
+  Height; 1;
+  Origin; kitchenOrigin: + vector(0, CounterWidth:, 0);
+  };
+  
+   (Child) counter2: {
+  class; ug_block;
+  Length; counterLength:;
+  Width; counterWidth:;
+  Height; 1;
+  Origin; kitchenOrigin:;
+  };
+  
+  (Child) island: {
+  class; ug_block;
+  Length; counterLength:/2;
+  Width; counterLength:/2;
+  Height; 1;
+  Origin; kitchenOrigin: + vector(CounterLength:/2, CounterWidth:*2, 0);
+  };
+  
