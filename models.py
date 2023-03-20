@@ -33,11 +33,16 @@ class Room:
     roomWidth: int = 10
     wallThickness: float = 0.3
     roomOrigin: str = "point(0,0,0)"
+    roomNumber: int = 1
     
     def to_knowledge_fusion(self) -> str:
-        dfa = get_dfa_as_string(self.__class__.__name__)
-        params = dict((field.name, getattr(self, field.name)) for field in fields(self))
+        dfa = get_dfa_as_string("apartment" + self.__class__.__name__ + str(self.roomNumber))
+        params = dict((field.name, getattr(self, field.name)) for field in fields(self) if field.name != "roomNumber")
         return insert_parameters(dfa, params)
+
+    def to_child(self, childNumber: int) -> str:
+        child = "(Child) " + self.__class__.__name__ + str(childNumber) + ": {\nclass; " + self.__class__.__name__ + ";\n};"
+        return child
 
 @dataclass
 class Apartment:
@@ -45,16 +50,16 @@ class Apartment:
     apartmentWidth: int = 30
     apartmentHeight: float = 2.4
     wallThickness: float = 0.3
-    bedrooms: int = 2
+    rooms: int = 2
     bathrooms: int = 2
-    balcony: float = 0.3
+    balcony: bool = False
     apartmentOrigin: str = "point(0,0,0)"
+    apartmentNumber: int = 1
 
-    def add_rooms(rooms: list[Room]) -> None:
-
-        for room in rooms:
-            #self.rooms = 
-            pass
+    def add_rooms(self, numberOfRooms: int) -> str:
+        room = Room(roomNumber=self.apartmentNumber)
+        rooms = "".join(["\n" + room.to_child(i+1) for i in range(numberOfRooms)])
+        return rooms
 
     def to_knowledge_fusion(self) -> str:
         pass
