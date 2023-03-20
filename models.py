@@ -1,5 +1,20 @@
 from dataclasses import dataclass
 
+def insert_parameters(dfa: str, parameters: dict) -> str:
+
+    # Inserting values
+    for key, value in parameters.items():
+        param = "Parameter) " + key + ": "
+        index = dfa.find(param)
+        if index > -1:
+            lend = dfa.find(";", index)
+            dfa = dfa[:index] + param + str(value) + dfa[lend:]
+        else:
+            print('Could not find "' + key + '" in dfa')
+
+    # Return dfa string with parameters inserted
+    return dfa
+
 def get_dfa_as_string(path: str) -> str:
 
     path = "new_DFA/" + path
@@ -20,7 +35,9 @@ class Room:
     roomOrigin: str = "point(0,0,0)"
 
     def to_knowledge_fusion(self) -> str:
-        pass
+        dfa = get_dfa_as_string(self.__class__.__name__)
+
+
 
 @dataclass
 class Apartment:
