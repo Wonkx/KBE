@@ -1,0 +1,34 @@
+#! UG/KF 17.0
+DefClass: Room (ug_base_part);
+(Number Parameter) roomLength: 10;
+(Number Parameter) roomWidth: 10;
+(Number Parameter) wallThickness: 0.3;
+(Point Parameter) roomOrigin: point(0,0,0);
+
+  (Child) outline: {
+  class; ug_block;
+  Length; roomLength:;
+  Width; roomWidth:;
+  Height; 2;
+  Origin; roomOrigin:;
+  };
+  
+  (Child) sub: {
+  class; ug_block;
+  Length; roomLength: - 2*wallThickness:;
+  Width; roomWidth: - 2*wallThickness:;
+  Height; 2;
+  Origin; roomOrigin: + vector(wallThickness:, wallThickness:, 0);
+  Operation; Subtract;
+  Target; {outline:};
+  };
+  
+  (Child) door: {
+  class; ug_block;
+  Length; 1;
+  Width; wallThickness:;
+  Height; 1.9;
+  Origin; roomOrigin: + vector(roomLength:/2 - 1/2, roomWidth: - wallThickness:, 0);
+  Operation; Subtract;
+  Target; {outline:};
+  };
