@@ -50,6 +50,6 @@ def inhabitant(**kwargs: dict[str, any]) -> str:
         return landing(kwargs)
 
     html = get_html_as_string("inhabitant")
-    url = "http://" + kwargs["HOST_NAME"] + ":" + kwargs["PORT_NUMBER"]
+    url = "http://" + kwargs["HOST_NAME"] + ":" + str(kwargs["PORT_NUMBER"])
     context = {"page_title": "Inhabitant", "url": url}
     return insert_parameters(html, context)
