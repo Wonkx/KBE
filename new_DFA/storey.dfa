@@ -1,0 +1,273 @@
+#! UG/KF 17.0
+DefClass: Storey1 (ug_base_part);
+(Number Parameter) storeyWallThickness: 0.3;
+(Number Parameter) storeyLength: 50;
+(Number Parameter) storeyWidth: 20;
+(Number Parameter) storeyHeight: 2;
+(Point Parameter) storeyOrigin: point(0,0,0);
+
+(Child) base: {
+  class; ug_block;
+  Length; storeyLength:;
+  Width; storeyWidth:;
+  Height; storeyHeight:;
+  Origin; storeyOrigin:;
+ };
+
+(Child) corridor: {
+  class; ug_block;
+  Length; storeyLength:-2*storeyWallThickness:;
+  Width; 2;
+  Height; storeyHeight:-storeyWallThickness:;
+  Origin; storeyOrigin: + vector(0.3, (storeyWidth:/2)-1, 0.3);
+  Operation; Subtract;
+  Target; {base:};
+  };
+  
+(Child) ap1: {
+	  class; ug_block;
+	  Length; (storeyLength:/2)-storeyWallThickness:*2;
+	  Width; (storeyWidth:)/2-storeyWallThickness:-1-storeyWallThickness:;
+	  Height; storeyHeight:-storeyWallThickness:;
+	  Origin; storeyOrigin: + vector(storeyWallThickness:, storeyWallThickness:, storeyWallThickness:);
+	  Operation; Subtract;
+	  Target; {base:};
+  };
+  
+  (Child) ap2: {
+	  class; ug_block;
+	  Length; (storeyLength:/2)-storeyWallThickness:*2;
+	  Width; (storeyWidth:)/2-storeyWallThickness:-1-storeyWallThickness:;
+	  Height; storeyHeight:-storeyWallThickness:;
+	  Origin; storeyOrigin: + vector(storeyLength:/2+0.3, storeyWallThickness:, storeyWallThickness:);
+	  Operation; Subtract;
+	  Target; {base:};
+  };
+  
+(Child) ap3: {
+	  class; ug_block;
+	  Length; (storeyLength:/2)-storeyWallThickness:*2;
+	  Width; (storeyWidth:)/2-storeyWallThickness:-1-storeyWallThickness:;
+	  Height; storeyHeight:-storeyWallThickness:;
+	  Origin; storeyOrigin: + vector(storeyWallThickness:, 11.3, storeyWallThickness:);
+	  Operation; Subtract;
+	  Target; {base:};
+  };
+  
+  (Child) ap4: {
+	  class; ug_block;
+	  Length; (storeyLength:/2)-storeyWallThickness:*2;
+	  Width; (storeyWidth:)/2-storeyWallThickness:-1-storeyWallThickness:;
+	  Height; storeyHeight:-storeyWallThickness:;
+	  Origin; storeyOrigin: + vector(storeyLength:/2+0.3, 11.3, storeyWallThickness:);
+	  Operation; Subtract;
+	  Target; {base:};
+  };
+ 
+ 
+ (Child) window1: {
+  class; ug_block;
+  Length; 3;
+  Width; 0.3;
+  Height; 1;
+  Origin; storeyOrigin: + vector(1, 0, 0.5);
+  Operation; Subtract;
+  Target; {base:};
+  };
+  
+  (Child) window2: {
+  class; ug_block;
+  Length; 3;
+  Width; 0.3;
+  Height; 1;
+  Origin; storeyOrigin: + vector(4.2, 0, 0.5);
+  Operation; Subtract;
+  Target; {base:};
+  };
+  
+  (Child) windowbath: {
+  class; ug_block;
+  Length; 2;
+  Width; 0.3;
+  Height; 1;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-11.5, 0, 0.5);
+  Operation; Subtract;
+  Target; {base:};
+  };
+  
+  (Child) bedroom1: {
+  class; ug_block;
+  Length; 4;
+  Width; 7;
+  Height; 2;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-4, 0, 0);
+  };
+  
+  (Child) bedroom1sub: {
+  class; ug_block;
+  Length; 4;
+  Width; 6.7;
+  Height; 2;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-3.75, 0, 0);
+  Operation; Subtract;
+  Target; {bedroom1:};
+  };
+  
+  (Child) windowbed1: {
+  class; ug_block;
+  Length; 2;
+  Width; 0.3;
+  Height; 1;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-3, 0, 0.5);
+  Operation; Subtract;
+  Target; {base:};
+  };
+  
+  (Child) windowbed2: {
+  class; ug_block;
+  Length; 2;
+  Width; 0.3;
+  Height; 1;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-7, 0, 0.5);
+  Operation; Subtract;
+  Target; {base:};
+  };
+  
+    (Child) bedroom2: {
+  class; ug_block;
+  Length; 4;
+  Width; 7;
+  Height; 2;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-8, 0, 0);
+  };
+  
+  (Child) bedroom2sub: {
+  class; ug_block;
+  Length; 4;
+  Width; 6.7;
+  Height; 2;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-7.75, 0, 0);
+  Operation; Subtract;
+  Target; {bedroom2:};
+  };
+  
+  
+  (Child) bathroom: {
+  class; ug_block;
+  Length; 4;
+  Width; 4.8;
+  Height; 2;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-12, 0.25, 0);
+  };
+  
+  (Child) bathroomsub: {
+  class; ug_block;
+  Length; 4;
+  Width; 4.5;
+  Height; 2;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-11.75, 0.25, 0);
+  Operation; Subtract;
+  Target; {bathroom:};
+  };
+  
+ (Child) kitch1: {
+  class; ug_block;
+  Length; 1;
+  Width; 4;
+  Height; 0.8;
+  Origin; storeyOrigin: + vector(storeyWallThickness:,storeyWidth:/2-storeyWallThickness:-1-4, 0);
+  };
+  
+ (Child) kitch2: {
+  class; ug_block;
+  Length; 2;
+  Width; 1;
+  Height; 0.8;
+  Origin; storeyOrigin: + vector(storeyWallThickness: + 1,storeyWidth:/2-storeyWallThickness:-1-1, 0);
+  };
+  
+   (Child) balcony: {
+  class; ug_block;
+  Length; 4;
+  Width; 2;
+  Height; 0.8;
+  Origin; storeyOrigin: + vector(8, -2, 0);
+  };
+  
+ (Child) balconysub: {
+  class; ug_block;
+  Length; 3.8;
+  Width; 1.9;
+  Height; 0.7;
+  Origin; storeyOrigin: + vector(8.1, -1.9, 0.1);
+  Operation; Subtract;
+  Target; {balcony:};
+  };
+  
+ (Child) door: {
+  class; ug_block;
+  Length; 1;
+  Width; 0.3;
+  Height; 1.5;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-3, storeyWidth:/2-1.3, 0.3);
+  Operation; Subtract;
+  Target; {base:};
+  };
+  
+  (Child) doorbath: {
+  class; ug_block;
+  Length; 1;
+  Width; 1;
+  Height; 1.5;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-10, 4.5, 0.3);
+  Operation; Subtract;
+  Target; {bathroom:};
+  };
+  
+    (Child) doorbed2: {
+  class; ug_block;
+  Length; 1;
+  Width; 1;
+  Height; 1.5;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-6, 6, 0.3);
+  Operation; Subtract;
+  Target; {bedroom2:};
+  };
+  
+    (Child) doorbed1: {
+  class; ug_block;
+  Length; 1;
+  Width; 1;
+  Height; 1.5;
+  Origin; storeyOrigin: + vector(storeyLength:/2-storeyWallThickness:-3, 6, 0.3);
+  Operation; Subtract;
+  Target; {bedroom1:};
+  };
+  
+  (Child) doorbacony: {
+  class; ug_block;
+  Length; 1;
+  Width; 1;
+  Height; 1.5;
+  Origin; storeyOrigin: + vector(10, 0, 0.3);
+  Operation; Subtract;
+  Target; {base:};
+  };
+  
+  
+  (Child) stairs: {
+  class; Stairs;
+  stairOrigin; storeyOrigin: + vector(storeyLength:-2.5, storeyWidth:/2-1, 0.3);
+  };
+  
+    (Child) stairshole: {
+  class; ug_block;
+  Length; 1.7;
+  Width; 2;
+  Height; 0.3;
+  Origin; storeyOrigin: + vector(storeyLength:-2, storeyWidth:/2-1, 0);
+  Operation; Subtract;
+  Target; {base:};
+  };
+  
+  
