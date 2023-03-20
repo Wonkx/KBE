@@ -11,6 +11,21 @@ class Room:
         pass
 
 @dataclass
+class Apartment:
+    apartmentLength: int = 50
+    apartmentWidth: int = 30
+    apartmentHeight: float = 2.4
+    wallThickness: float = 0.3
+    bedrooms: int = 2
+    bathrooms: int = 2
+    balcony: float = 0.3
+    apartmentOrigin: str = "point(0,0,0)"
+
+    def to_knowledge_fusion(self) -> str:
+        pass
+
+
+@dataclass
 class Building:
     stories: int = 10
     buildingOrigen: str = "point(0,0,0)"
