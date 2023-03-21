@@ -52,3 +52,60 @@ DefClass: Apartment3 (ug_base_part);
   balconyHeight; 1;
   balconyOrigin; apartmentOrigin: + vector(apartmentLength:-child:balconyLength:, apartmentWidth: , -0.4);
   };
+  
+  (Child) balcdoor: {
+  class; ug_block;
+  Length; 1;
+  Width; wallThickness:;
+  Height; 1.9;
+  Origin; apartmentOrigin: + vector(apartmentLength: - 2 - wallThickness:, apartmentWidth:-wallThickness:, 0);
+  Operation; Subtract;	
+  Target; {outline:};
+  };
+  
+  (Child) kitchen: {
+  class; Kitchen3;
+  counterLength; 4;
+  counterWidth; 1;
+  kitchenOrigin; apartmentOrigin: + vector(apartmentLength: - wallThickness: - child:counterLength:, wallThickness: , 0);
+  };
+  
+      (Child) window1: {
+  class; ug_block;
+  Length; 4;
+  Width; wallThickness:;
+  Height; 1.5;
+  Origin; apartmentOrigin: + vector(child:room1:roomLength:/2 - child:window1:Length:/2, apartmentWidth: - wallThickness:, 0.5);
+  Operation; Subtract;
+  Target; {outline:};
+  };
+  
+      (Child) window2: {
+  class; ug_block;
+  Length; 4;
+  Width; wallThickness:;
+  Height; 1.5;
+  Origin; apartmentOrigin: + vector(child:room1:roomLength:*1.5 - child:window1:Length:/2, apartmentWidth: - wallThickness:, 0.5);
+  Operation; Subtract;
+  Target; {outline:};
+  };
+
+   (Child) window6: {
+  class; ug_block;
+  Length; wallThickness:;
+  Width; 4;
+  Height; 1;
+  Origin; apartmentOrigin: + vector(apartmentLength: - wallThickness:, apartmentWidth: - 3 - child:window6:Width:, 0.5);
+  Operation; Subtract;
+  Target; {outline:};
+  };
+
+ (Child) window7: {
+  class; ug_block;
+  Length; wallThickness:;
+  Width; 4;
+  Height; 0.5;
+  Origin; apartmentOrigin: + vector(apartmentLength: - wallThickness:,1, 1.5);
+  Operation; Subtract;
+  Target; {outline:};
+  };
