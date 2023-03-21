@@ -1,9 +1,10 @@
 #! UG/KF 17.0
-DefClass: ApartmentRoom2 (ug_base_part);
+DefClass: ApartmentRoom1 (ug_base_part);
 (Number Parameter) roomLength: 10;
 (Number Parameter) roomWidth: 10;
 (Number Parameter) roomHeight: 2.4;
 (Number Parameter) wallThickness: 0.3;
+(Number Parameter) doorHeight: 1.9;
 (Point Parameter) roomOrigin: point(0,0,0);
 
   (Child) outline: {
@@ -19,7 +20,7 @@ DefClass: ApartmentRoom2 (ug_base_part);
   Length; roomLength: - wallThickness:;
   Width; roomWidth: - wallThickness:;
   Height; roomHeight:;
-  Origin; roomOrigin: + vector(wallThickness:, wallThickness:, 0);
+  Origin; roomOrigin: + vector(wallThickness:, 0, 0);
   Operation; Subtract;
   Target; {outline:};
   };
@@ -28,8 +29,8 @@ DefClass: ApartmentRoom2 (ug_base_part);
   class; ug_block;
   Length; 1;
   Width; wallThickness:;
-  Height; 1.9;
-  Origin; roomOrigin: + vector(roomLength:/2 - 1/2, 0, 0);
+  Height; doorHeight:;
+  Origin; roomOrigin: + vector(roomLength:/2 - child:door:Length:, roomWidth: - wallThickness:, 0);
   Operation; Subtract;
   Target; {outline:};
   };

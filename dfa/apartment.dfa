@@ -1,12 +1,12 @@
 #! UG/KF 17.0
-DefClass: Apartment1 (ug_base_part);
-(Number Parameter) apartmentLength: 50;
-(Number Parameter) apartmentWidth: 30;
+DefClass: Apartment (ug_base_part);
+(Number Parameter) apartmentLength: 20;
+(Number Parameter) apartmentWidth: 20;
 (Number Parameter) apartmentHeight: 2.4;
 (Number Parameter) wallThickness: 0.3;
-(Number Parameter) bedrooms: 2;
-(Number Parameter) balconey: 0.3;
-(Point Parameter) apartmentOrigin: point(0,0,0);
+(Number Parameter) floorThickness: 0.5;
+(Number Parameter) roofThickness: 0.5;
+(Point Parameter) apartmentOrigin: point(0,0,floorThickness:);
 
   (Child) outline: {
   class; ug_block;
@@ -31,50 +31,31 @@ DefClass: Apartment1 (ug_base_part);
   Length; 1;
   Width; wallThickness:;
   Height; 1.9;
-  Origin; apartmentOrigin: + vector(apartmentLength:/2 - 1/2, apartmentWidth: - wallThickness:, 0);
+  Origin; apartmentOrigin: + vector(apartmentLength:/2 - child:door:Length:/2, apartmentWidth: - wallThickness:, 0);
   Operation; Subtract;
   Target; {outline:};
   };
   
-  (Child) room1: {
+  (Child) room: {  
   class; ApartmentRoom1;
   roomLength; 10;
-  roomWidth; 10;
-  roomHeight; 2.4;
-  roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room1:roomLength:, 0, 0);
+  roomWidth; 10; 
+  roomHeight; apartmentHeight:;
+  roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room:roomLength:, 0, 0);
   };
   
-    (Child) room2: {
-  class; ApartmentRoom1;
-  roomLength; 7;
-  roomWidth; 7;
-  roomHeight; 2.4;
-  roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room1:roomLength: - child:room2:roomLength:, 0, 0);
-  };
-
-  
-  (Child) window1: {
+  (Child) windowRoom: { 
   class; ug_block;
   Length; 4;
   Width; wallThickness:;
   Height; 1.5;
-  Origin; apartmentOrigin: + vector(apartmentLength: - child:room1:roomLength:/2 - child:window1:Length:/2, 0, 0.5);
-  Operation; Subtract;
-  Target; {outline:};
-  };
-  
-    (Child) window2: {
-  class; ug_block;
-  Length; 4;
-  Width; wallThickness:;
-  Height; 1.5;
-  Origin; apartmentOrigin: + vector(apartmentLength: - child:room1:roomLength:*1.25 - child:window1:Length:/2, 0, 0.5);
+  Origin; apartmentOrigin: + vector(apartmentLength: - child:room:roomLength:/2 - child:windowRoom:Length:/2, 0, 0.5);
   Operation; Subtract;
   Target; {outline:};
   };
   
   
-   (Child) window6: {
+   (Child) windowBalc: {
   class; ug_block;
   Length; wallThickness:;
   Width; 4;
@@ -84,12 +65,12 @@ DefClass: Apartment1 (ug_base_part);
   Target; {outline:};
   };
   
-  (Child) window7: {
+  (Child) windowKitch: {
   class; ug_block;
   Length; wallThickness:;
   Width; 4;
   Height; 0.5;
-  Origin; apartmentOrigin: + vector(0, apartmentWidth: - 1 - child:window6:Width:, 1.5);
+  Origin; apartmentOrigin: + vector(0, apartmentWidth: - 1 - child:windowBalc:Width:, 1.5);
   Operation; Subtract;
   Target; {outline:};
   };
@@ -99,23 +80,40 @@ DefClass: Apartment1 (ug_base_part);
   balconyLength; 5;
   balconyWidth; 3;
   balconyHeight; 1;
-  balconyOrigin; apartmentOrigin: + vector(0, -child:balconyWidth:, -0.4);
+  balconyOrigin; apartmentOrigin: + vector(0, -child:balconyWidth:, -floorThickness:);
   };
   
-    (Child) balcdoor: {
+    (Child) balcDoor: {
   class; ug_block;
   Length; 1;
   Width; wallThickness:;
   Height; 1.9;
-  Origin; apartmentOrigin: + vector(1, 0, 0);
+  Origin; apartmentOrigin: + vector(child:balc:balconyLength:/2 - child:balcDoor:Length:/2, 0, 0);
   Operation; Subtract;
   Target; {outline:};
   };
   
    (Child) kitchen: {
-  class; Kitchen1;
+  class; Kitchen;
   counterLength; 4;
   counterWidth; 1;
   kitchenOrigin; apartmentOrigin: + vector(wallThickness:, apartmentWidth: -wallThickness: -child:counterWidth:-1 , 0);
+  };
+  
+  
+    (Child) floor: {
+  class; ug_block;
+  Length; apartmentLength:;
+  Width; apartmentWidth:;
+  Height; floorThickness:;
+  Origin; apartmentOrigin:+ vector(0, 0, -floorThickness:);
+  };
+  
+      (Child) roof: {
+  class; ug_block;
+  Length; apartmentLength:;
+  Width; apartmentWidth:;
+  Height; roofThickness:;
+  Origin; apartmentOrigin:+ vector(0, 0, apartmentHeight:);
   };
   

@@ -1,0 +1,27 @@
+#! UG/KF 17.0
+DefClass: Corridor (ug_base_part);
+(Number Parameter) Length: 10;
+(Number Parameter) Width: 2;
+(Number Parameter) Height: 2.4;
+(Number Parameter) wallThickness: 0.3;
+(Point Parameter) corridorOrigin: point(0,0,0);
+
+  (Child) outline: {
+  class; ug_block;
+  Length; Length:;
+  Width; Width:;
+  Height; Height:;
+  Origin; corridorOrigin:;
+  };
+  
+  (Child) sub: {
+  class; ug_block;
+  Length; Length: - wallThickness:;
+  Width; Width: - 2*wallThickness:;
+  Height; Height: - 1;
+  Origin; corridorOrigin: + vector(wallThickness:, wallThickness:, 0.5);
+  Operation; Subtract;
+  Target; {outline:};
+  };
+  
+  
