@@ -17,7 +17,6 @@ def insert_parameters(html: str, context: dict) -> str:
     start_position, end_position = html.find("{% "), html.find(" %}")
     if start_position+1 and end_position+1:
         variable = html[start_position:end_position]
-        print(start_position, end_position)
         print("Variable " + variable + " not inserted in html")
 
     # Return html string with context inserted
@@ -54,8 +53,14 @@ def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
     required_kwargs = ["HOST_NAME", "PORT_NUMBER"]
     if not confirm_kwargs(kwargs, required_kwargs):
         return landing(kwargs)
-
+    
+    if request.command == "POST":
+        pass
+    
     html = get_html_as_string("inhabitant")
     url = "http://" + kwargs["HOST_NAME"] + ":" + str(kwargs["PORT_NUMBER"])
     context = {"page_title": "Inhabitant", "url": url}
-    return insert_parameters(html, context)
+    html = insert_parameters(html, context)
+
+    return html
+
