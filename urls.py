@@ -1,13 +1,18 @@
+from __future__ import annotations
 from views import landing, builder, inhabitant
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from server import RequestHandler
 
-def route(path: str, **kwargs: dict[str, any]) -> str:
+def route(request: RequestHandler, **kwargs: dict[str, any]) -> str:
+    path = request.path or '/'
     if (path[0] == '/'):
         path = path[1:]
 
     match path:
         case "builder":
-            return builder(**kwargs)
+            return builder(request, **kwargs)
         case "inhabitant":
-            return inhabitant(**kwargs)
+            return inhabitant(request, **kwargs)
         case _:
-            return landing(**kwargs)
+            return landing(request, **kwargs)

@@ -1,3 +1,8 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from server import RequestHandler
+
 def insert_parameters(html: str, context: dict) -> str:
 
     # Inserting values
@@ -12,6 +17,7 @@ def insert_parameters(html: str, context: dict) -> str:
     start_position, end_position = html.find("{% "), html.find(" %}")
     if start_position and end_position:
         variable = html[start_position:end_position]
+        print(start_position, end_position)
         print("Variable " + variable + " not inserted in html")
 
     # Return html string with context inserted
@@ -35,16 +41,16 @@ def confirm_kwargs(kwargs: dict[str, any], requirements: list[str]) -> bool:
             return False
     return True
 
-def landing(**kwargs: dict[str, any]) -> str:
+def landing(request: RequestHandler, **kwargs: dict[str, any]) -> str:
     html = get_html_as_string("landing")
     return html
 
-def builder(**kwargs: dict[str, any]) -> str:
+def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
     html = get_html_as_string("builder")
     context = {"page_title": "builder", "heading": "heading"}
     return insert_parameters(html, context)
 
-def inhabitant(**kwargs: dict[str, any]) -> str:
+def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
     required_kwargs = ["HOST_NAME", "PORT_NUMBER"]
     if not confirm_kwargs(kwargs, required_kwargs):
         return landing(kwargs)
