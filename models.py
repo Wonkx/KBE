@@ -47,19 +47,17 @@ class Room:
 
 @dataclass
 class Apartment:
-    apartmentLength: int = 50
-    apartmentWidth: int = 30
+    apartmentLength: float = 20
+    apartmentWidth: float = 20
     apartmentHeight: float = 2.4
     wallThickness: float = 0.3
-    rooms: int = 2
-    bathrooms: int = 2
-    balcony: bool = False
-    apartmentOrigin: str = "point(0,0,0)"
-    apartmentNumber: int = 1
+    floorThickness: float = 0.5
+    roomThickness: float = 0.5
+    apartmentOrigin: str = "point(0,0,floorThickness:)"
 
-    def add_rooms(self, numberOfRooms: int) -> str:
-        room = Room(roomNumber=self.apartmentNumber)
-        rooms = "".join(["\n" + room.to_child(i+1) for i in range(numberOfRooms)])
+    def add_rooms(self) -> str:
+        room = Room()
+        rooms = "".join(["\n" + room.to_child(i+1) for i in range(4)])
         return rooms
 
     def to_knowledge_fusion(self) -> str:
