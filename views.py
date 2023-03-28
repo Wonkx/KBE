@@ -15,7 +15,7 @@ def insert_parameters(html: str, context: dict) -> str:
 
     # Throw warning (print) if there are any variables left in the html string
     start_position, end_position = html.find("{% "), html.find(" %}")
-    if start_position and end_position:
+    if start_position+1 and end_position+1:
         variable = html[start_position:end_position]
         print(start_position, end_position)
         print("Variable " + variable + " not inserted in html")
