@@ -73,6 +73,8 @@ DefClass: Storey (ug_base_part);
 	  Width; corridorWidth:; #change
 	  Height; floorThickness: + roofThickness: + storeyHeight:; 
 	  wallThickness; wallThickness:;
+	  doorPlacement; child:ap1:apartmentLength:/2 - child:ap1:door:Length:/2;
+	  doorHeight; floorThickness:;
 	  corridorOrigin; storeyOrigin: + vector(-child:ap1:apartmentLength: - corridorWidth:/2, -child:c1:corridorWidth:/2, 0);
   };
   
@@ -82,6 +84,8 @@ DefClass: Storey (ug_base_part);
 	  Width; corridorWidth:; #change
 	  Height; floorThickness: + roofThickness: + storeyHeight:;
 	  wallThickness; wallThickness:;
+	  doorPlacement; child:ap2:apartmentLength:/2 - child:ap2:door:Length:/2;
+	  doorHeight; floorThickness:;
 	  
 	  corridorOrigin; storeyOrigin: + vector(-child:c2:corridorWidth:/2, child:c2:Length: + child:c2:corridorWidth:/2, 0);
 	  referenceFrame; framexy(storeyOrigin: + vector(0, 0, 0), vector(0,-1,0),vector(1,0,0));
@@ -93,6 +97,8 @@ DefClass: Storey (ug_base_part);
 	  Width; corridorWidth:; #change
 	  Height; floorThickness: + roofThickness: + storeyHeight:;
 	  wallThickness; wallThickness:;
+	  doorPlacement; child:ap3:apartmentLength:/2 - child:ap3:door:Length:/2;
+	  doorHeight; floorThickness:;
 	  
 	  corridorOrigin; storeyOrigin: + vector(child:ap3:apartmentLength: + child:c3:corridorWidth:/2, child:c3:corridorWidth:/2, 0);
 	  referenceFrame; framexy(storeyOrigin: + vector(0, 0, 0), vector(-1,0,0),vector(0,-1,0));
@@ -104,6 +110,8 @@ DefClass: Storey (ug_base_part);
 	  Width; corridorWidth:; #change
 	  Height; floorThickness: + roofThickness: + storeyHeight:; 
 	  wallThickness; wallThickness:;
+	  doorPlacement; child:ap4:apartmentLength:/2 - child:ap4:door:Length:/2;
+	  doorHeight; floorThickness:;
 	  
 	  corridorOrigin; storeyOrigin: + vector(child:c4:corridorWidth:/2, -child:c4:Length: - child:c4:corridorWidth:/2, 0);
 	  referenceFrame; framexy(storeyOrigin: + vector(0, 0, 0), vector(0,1,0),vector(-1,0,0));

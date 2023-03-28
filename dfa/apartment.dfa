@@ -6,6 +6,7 @@ DefClass: Apartment (ug_base_part);
 (Number Parameter) wallThickness: 0.3;
 (Number Parameter) floorThickness: 0.5;
 (Number Parameter) roofThickness: 0.5;
+(Number Parameter) numberOfRooms: 2;
 (Point Parameter) apartmentOrigin: point(0,0,floorThickness:);
 
   (Child) outline: {
@@ -37,12 +38,13 @@ DefClass: Apartment (ug_base_part);
   };
   
   (Child) room: {  
-  class; ApartmentRoom1;
+  class; Room;
   roomLength; 10;
   roomWidth; 10; 
   roomHeight; apartmentHeight:;
   roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room:roomLength:, 0, 0);
   };
+  
   
   (Child) windowRoom: { 
   class; ug_block;
