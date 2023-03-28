@@ -1,5 +1,5 @@
 #! UG/KF 17.0
-DefClass: ApartmentRoom1 (ug_base_part);
+DefClass: Room (ug_base_part);
 (Number Parameter) roomLength: 10;
 (Number Parameter) roomWidth: 10;
 (Number Parameter) roomHeight: 2.4;

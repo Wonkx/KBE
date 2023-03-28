@@ -6,7 +6,7 @@ DefClass: Building (ug_base_part);
   class; ug_cylinder;
   Diameter; 2;
   Height; 14.4;
-  Origin; point(0, 0, 0);
+  Origin; point(-1, 21, 0);
  };
 
 #STOREY 1 PARAMETERS
@@ -18,6 +18,7 @@ DefClass: Building (ug_base_part);
   ap1Length; 50; #change
   ap1Width; 40; #change
   ap1Height; storeyHeight:;
+  
   
   # APARTMENT 2 PARAMETERS
   ap2Length; 45; #change
