@@ -29,9 +29,11 @@ def get_dfa_as_string(path: str) -> str:
 
 @dataclass
 class Room:
-    roomLength: int = 10
-    roomWidth: int = 10
+    roomLength: float = 10
+    roomWidth: float = 10
+    roomHeight: float = 2.4
     wallThickness: float = 0.3
+    doorHeight: float = 1.9
     roomOrigin: str = "point(0,0,0)"
     
     def to_knowledge_fusion(self) -> str:
