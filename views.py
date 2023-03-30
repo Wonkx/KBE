@@ -42,6 +42,14 @@ def confirm_kwargs(kwargs: dict[str, any], requirements: list[str]) -> bool:
             return False
     return True
 
+def extract_pairs_from_form(request: RequestHandler) -> list[str]:
+    content_len = int(request.headers.get("Content-Length"))
+    post_body = request.rfile.read(content_len)
+    body = post_body.decode()
+    pairs = body.split('&')
+
+    return pairs
+
 def landing(request: RequestHandler, **kwargs: dict[str, any]) -> str:
     html = get_html_as_string("landing")
     return html
@@ -64,10 +72,7 @@ def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
     if request.command == "POST":
         #TODO: Add form validation
 
-        content_len = int(request.headers.get("Content-Length"))
-        post_body = request.rfile.read(content_len)
-        body = post_body.decode()
-        pairs = body.split('&')
+        pairs = extract_pairs_from_form(request)
 
         balcony = True if len(pairs) == 3 else False
         numberOfRooms = int(pairs[0].split('=')[1])
