@@ -61,12 +61,12 @@ def get_apartment_ids_without_building(limit: int) -> list[int]:
     query = """
     PREFIX kbe:<http://www.my-kbe.com/building.owl#>
     SELECT ?apartments
-    WHERE {
+    WHERE {{
         ?apartments a kbe:Apartment.
         ?apartments kbe:hasArea ?area.
         ?apartments kbe:hasBuilding ?built.
         FILTER (?built = false).
-    }
+    }}
     ORDER BY DESC(?area)
     LIMIT {limit}
     """.format(limit=limit)
