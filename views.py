@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from server import RequestHandler
-from models import Apartment
+from models import Apartment, Building
 from DbHandler import insert
 
 def insert_parameters(html: str, context: dict) -> str:
@@ -65,6 +65,8 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         pairs = extract_pairs_from_form(request)
         numberOfStoreys = int(pairs[0].split('=')[1])
 
+        building = Building()
+        building.storeys = numberOfStoreys
 
 
     html = get_html_as_string("builder")
