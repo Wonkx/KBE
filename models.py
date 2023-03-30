@@ -53,20 +53,6 @@ class Room:
         params = dict((field.name, getattr(self, field.name)) for field in fields(self))
         return insert_parameters(dfa, params)
 
-@dataclass
-class Room:
-    roomLength: float | str = 10
-    roomWidth: float | str = 10
-    roomHeight: float | str = 2.4
-    wallThickness: float | str = 0.3
-    doorHeight: float | str = 1.9
-    roomOrigin: str = "point(0,0,0)"
-    
-    def to_knowledge_fusion(self) -> str:
-        dfa = get_dfa_as_string(self.__class__.__name__)
-        params = dict((field.name, getattr(self, field.name)) for field in fields(self))
-        return insert_parameters(dfa, params)
-
     def to_knowledge_fusion_child(self, childNumber: int) -> str:
         child = "(Child) " + self.__class__.__name__ + str(childNumber) \
             + ": {\nclass; " + self.__class__.__name__ + ";\n" \
@@ -126,6 +112,10 @@ class Storey:
     storeyHeight: float = 2.0
     storeyOrigin: str = "point(0,0,0)"
 
+    def add_apartments(self) -> None:
+
+        pass
+
     def to_knowledge_fusion(self) -> str:
         pass
 
@@ -133,6 +123,10 @@ class Storey:
 class Building(Zone):
     storeys: int = 10
     buildingOrigen: str = "point(0,0,0)"
+    storey: list = field(default_factory=list)
+
+    def add_storeys(self) -> None:
+        pass
 
     def to_knowledge_fusion(self) -> str:
         pass
