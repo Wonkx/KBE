@@ -5,8 +5,11 @@
 </head>
 <body>
 
-<h1>{% heading %}</h1>
-<p>This is a paragraph.</p>
+    <h2>Product Configurator</h2>
+    <form action="{% url %}" method="post">
+        <p>Number of storeys:</p><br><input type="text" name="numberOfStoreys" value="1">
+        <br><br><input type="submit" value="Submit">
+    </form>
 
 </body>
 </html>
