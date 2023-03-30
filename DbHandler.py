@@ -50,11 +50,10 @@ def count(zone: Zone) -> int:
     }}
     """.format(zone=zone.__class__.__name__)
 
-    PARAMS = {'query': query} 
-
     try:
-        count = requests.get(url = get_query_url(), data = PARAMS)
-        print(count)
+        response = requests.get(url = get_query_url(), params = {'query': query})
+        data = response.json()
+        count = len(data["results"]['bindings'])
         return count
     except:
         return -1
@@ -110,8 +109,8 @@ def add_apartment_ids_to_building(ids: list[int]) -> None:
 if __name__ == '__main__':
     #print(test_connection())
     #add_apartment_ids_to_building([3, 4])
-    print(get_apartment_ids_without_building(10))
-
+    #print(get_apartment_ids_without_building(10))
+    pass
     #q = """
     #PREFIX kbe:<http://www.my-kbe.com/building.owl#>
     #INSERT {
