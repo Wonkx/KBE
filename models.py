@@ -53,8 +53,25 @@ class Room:
         params = dict((field.name, getattr(self, field.name)) for field in fields(self))
         return insert_parameters(dfa, params)
 
-    def to_child(self, childNumber: int) -> str:
-        child = "(Child) " + self.__class__.__name__ + str(childNumber) + ": {\nclass; " + self.__class__.__name__ + ";\n};"
+@dataclass
+class Room:
+    roomLength: float | str = 10
+    roomWidth: float | str = 10
+    roomHeight: float | str = 2.4
+    wallThickness: float | str = 0.3
+    doorHeight: float | str = 1.9
+    roomOrigin: str = "point(0,0,0)"
+    
+    def to_knowledge_fusion(self) -> str:
+        dfa = get_dfa_as_string(self.__class__.__name__)
+        params = dict((field.name, getattr(self, field.name)) for field in fields(self))
+        return insert_parameters(dfa, params)
+
+    def to_knowledge_fusion_child(self, childNumber: int) -> str:
+        child = "(Child) " + self.__class__.__name__ + str(childNumber) \
+            + ": {\nclass; " + self.__class__.__name__ + ";\n" \
+            + "".join([(field.name + ": " + str(getattr(self, field.name)) + ";\n") for field in fields(self)]) \
+            + "};"
         return child
 
 @dataclass
