@@ -2,6 +2,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from server import RequestHandler
+from models import Apartment
+from DbHandler import insert
 
 def insert_parameters(html: str, context: dict) -> str:
 
@@ -55,11 +57,26 @@ def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         return landing(kwargs)
     
     if request.command == "POST":
-        pass
+        content_len = int(request.headers.get("Content-Length"))
+        post_body = request.rfile.read(content_len)
+        body = post_body.decode()
+        pairs = body.split('&')
+
+        balcony = True if len(pairs) == 3 else False
+        numberOfRooms = int(pairs[0].split('=')[1])
+        size = float(pairs[1].split('=')[1])
+        
+        apartment = Apartment()
+        apartment.hasBalcony = balcony
+        apartment.numberOfRooms = min(4, numberOfRooms)
+        apartment.apartmentLength = size / apartment.apartmentWidth
+        apartment.add_rooms()
+        insert(apartment)
+
     
     html = get_html_as_string("inhabitant")
     url = "http://" + kwargs["HOST_NAME"] + ":" + str(kwargs["PORT_NUMBER"])
-    context = {"page_title": "Inhabitant", "url": url}
+    context = {"page_title": "Inhabitant", "url": "#"}
     html = insert_parameters(html, context)
 
     return html
