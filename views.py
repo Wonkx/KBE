@@ -65,10 +65,10 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         pairs = extract_pairs_from_form(request)
         numberOfStoreys = int(pairs[0].split('=')[1])
 
-        
+
 
     html = get_html_as_string("builder")
-    context = {"page_title": "builder", "heading": "heading"}
+    context = {"page_title": "builder", "url": "#"}
     return insert_parameters(html, context)
 
 def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
