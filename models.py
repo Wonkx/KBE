@@ -70,7 +70,7 @@ class Apartment(Zone):
 
     def add_rooms(self) -> str:
         room = Room()
-        rooms = "".join(["\n" + room.to_child(i+1) for i in range(self.numberOfRooms)])
+        rooms = "".join(["\n" + room.to_child(i+1) for i in range(min(self.numberOfRooms, 3))])
         return rooms
 
     def to_knowledge_fusion(self) -> str:
