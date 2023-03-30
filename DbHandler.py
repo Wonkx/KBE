@@ -99,10 +99,8 @@ def add_apartment_ids_to_building(ids: list[int]) -> None:
     }}
     """.format(subjects=subjects)
 
-    PARAMS = {'query': query} 
-
     try:
-        partments = requests.get(url = get_update_url(), data = PARAMS)
+        partments = requests.get(url = get_update_url(), params = {'query': query} )
     except:
         pass
 
