@@ -1,4 +1,4 @@
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, fields, field
 from abc import ABC, abstractmethod
 
 def insert_parameters(dfa: str, parameters: dict) -> str:
@@ -85,7 +85,7 @@ class Apartment(Zone):
     numberOfRooms: int = 2
     hasBalcony: bool = False
     apartmentOrigin: str = "point(0,0,floorThickness:)"
-    rooms: list[Room] = []
+    rooms: list = field(default_factory=list)
 
     def add_rooms(self) -> None:
         rooms = [Room() for i in range(self.numberOfRooms)]
@@ -110,6 +110,7 @@ class Apartment(Zone):
                     kbe:apartment{id} kbe:hasArea "{area}"^^<http://www.w3.org/2001/XMLSchema#float>.
                     kbe:apartment{id} kbe:hasBalcony "{hasBalcony}"^^<http://www.w3.org/2001/XMLSchema#boolean>.
                     kbe:apartment{id} kbe:hasRooms "{numberOfRooms}"^^<http://www.w3.org/2001/XMLSchema#int>.
+                    kbe:apartment{id} kbe:hasBuilding "{false"^^<http://www.w3.org/2001/XMLSchema#boolean>.
                 }
                 WHERE {
                 }
@@ -140,4 +141,5 @@ class Building(Zone):
         pass
 
 if __name__ == '__main__':
+    print("test")
     pass
