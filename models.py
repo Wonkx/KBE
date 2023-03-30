@@ -111,10 +111,10 @@ class Storey:
     storeyWidth: int = 20
     storeyHeight: float = 2.0
     storeyOrigin: str = "point(0,0,0)"
+    apartments: list = field(default_factory=list)
 
-    def add_apartments(self) -> None:
-
-        pass
+    def add_apartments(self, apartments: list[Apartment]) -> None:
+        self.apartments = apartments
 
     def to_knowledge_fusion(self) -> str:
         pass
@@ -123,10 +123,10 @@ class Storey:
 class Building(Zone):
     storeys: int = 10
     buildingOrigen: str = "point(0,0,0)"
-    storey: list = field(default_factory=list)
+    storeys: list = field(default_factory=list)
 
-    def add_storeys(self) -> None:
-        pass
+    def add_storeys(self, storeys: list[Storey]) -> None:
+        self.storeys = storeys
 
     def to_knowledge_fusion(self) -> str:
         pass
