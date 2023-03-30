@@ -130,7 +130,7 @@ class Storey:
 
 @dataclass
 class Building:
-    stories: int = 10
+    storeys: int = 10
     buildingOrigen: str = "point(0,0,0)"
 
     def to_knowledge_fusion(self) -> str:
