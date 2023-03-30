@@ -129,11 +129,14 @@ class Storey:
         pass
 
 @dataclass
-class Building:
+class Building(Zone):
     storeys: int = 10
     buildingOrigen: str = "point(0,0,0)"
 
     def to_knowledge_fusion(self) -> str:
+        pass
+
+    def to_sparql_insert(self, id: int) -> str:
         pass
 
 if __name__ == '__main__':
