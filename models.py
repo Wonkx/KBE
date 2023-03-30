@@ -65,6 +65,7 @@ class Apartment(Zone):
     wallThickness: float = 0.3
     floorThickness: float = 0.5
     roofThickness: float = 0.5
+    numberOfRooms: int = 2
     apartmentOrigin: str = "point(0,0,floorThickness:)"
 
     def add_rooms(self) -> str:
