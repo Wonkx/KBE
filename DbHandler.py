@@ -13,9 +13,9 @@ def get_update_url() -> str:
 
 def test_connection() -> bool:
     test_query = """
-                SELECT ?subject ?predicate ?object
+                SELECT ?subject ?predicate ?object.
                 WHERE {
-                    ?subject ?predicate ?object
+                    ?subject ?predicate ?object.
                 }
                 LIMIT 1
                 """
@@ -37,6 +37,23 @@ def insert(zone: Zone) -> bool:
         return True
     except:
         return False
+
+def count(zone: Zone) -> int:
+    query = """
+    PREFIX kbe:<http://www.my-kbe.com/building.owl#>
+    SELECT ?subject ?predicate ?object.
+    WHERE {
+        ?subject a kbe:{zone}.
+    }
+    """.format(zone=zone.__class__.__name__)
+
+    PARAMS = {'query': query} 
+
+    try:
+        count = requests.get(url = get_query_url(), data = PARAMS)
+        return count
+    except:
+        return -1
 
 if __name__ == '__main__':
     print(test_connection())
