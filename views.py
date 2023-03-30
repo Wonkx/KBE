@@ -47,6 +47,11 @@ def landing(request: RequestHandler, **kwargs: dict[str, any]) -> str:
     return html
 
 def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
+    required_kwargs = ["HOST_NAME", "PORT_NUMBER"]
+    if not confirm_kwargs(kwargs, required_kwargs):
+        return landing(kwargs)
+
+
     html = get_html_as_string("builder")
     context = {"page_title": "builder", "heading": "heading"}
     return insert_parameters(html, context)
