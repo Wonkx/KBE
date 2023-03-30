@@ -36,7 +36,7 @@ class Zone(ABC):
         pass
 
     @abstractmethod
-    def to_sparql_insert(self) -> str:
+    def to_sparql_insert(self, id: int) -> str:
         pass
 
 @dataclass
