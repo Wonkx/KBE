@@ -83,6 +83,7 @@ class Apartment(Zone):
     floorThickness: float = 0.5
     roofThickness: float = 0.5
     numberOfRooms: int = 2
+    hasBalcony: bool = False
     apartmentOrigin: str = "point(0,0,floorThickness:)"
     rooms: list[Room] = []
 
