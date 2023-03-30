@@ -37,16 +37,17 @@ DefClass: Apartment (ug_base_part);
   Target; {outline:};
   };
   
-  (Child) room1: {  
-  class; if (numberOfRooms?: > 0) Then Room else NullDesign;
+  (Child) room: {  
+  class; Room;
   roomLength; 10;
   roomWidth; 10; 
   roomHeight; apartmentHeight:;
   roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room:roomLength:, 0, 0);
   };
   
-  (Child) windowRoom1: { 
-  class; if (numberOfRooms?: > 0) Then ug_block else NullDesign;
+  
+  (Child) windowRoom: { 
+  class; ug_block;
   Length; 4;
   Width; wallThickness:;
   Height; 1.5;
@@ -55,43 +56,8 @@ DefClass: Apartment (ug_base_part);
   Target; {outline:};
   };
   
-  (Child) room2: {  
-  class; if (numberOfRooms?: > 1) Then Room else NullDesign;
-  roomLength; 10;
-  roomWidth; 10; 
-  roomHeight; apartmentHeight:;
-  roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room:roomLength:, 0, 0);
-  };
   
-  (Child) windowRoom2: { 
-  class; if (numberOfRooms?: > 1) Then ug_block else NullDesign;
-  Length; 4;
-  Width; wallThickness:;
-  Height; 1.5;
-  Origin; apartmentOrigin: + vector(apartmentLength: - child:room:roomLength:/2 - child:windowRoom:Length:/2, 0, 0.5);
-  Operation; Subtract;
-  Target; {outline:};
-  };
-
-  (Child) room3: {  
-  class; if (numberOfRooms?: > 2) Then Room else NullDesign;
-  roomLength; 10;
-  roomWidth; 10; 
-  roomHeight; apartmentHeight:;
-  roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room:roomLength:, 0, 0);
-  };
-
-  (Child) windowRoom3: { 
-  class; if (numberOfRooms?: > 2) Then ug_block else NullDesign;
-  Length; 4;
-  Width; wallThickness:;
-  Height; 1.5;
-  Origin; apartmentOrigin: + vector(apartmentLength: - child:room:roomLength:/2 - child:windowRoom:Length:/2, 0, 0.5);
-  Operation; Subtract;
-  Target; {outline:};
-  };
-  
-  (Child) windowBalc: {
+   (Child) windowBalc: {
   class; ug_block;
   Length; wallThickness:;
   Width; 4;
