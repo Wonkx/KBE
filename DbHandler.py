@@ -43,9 +43,9 @@ def count(zone: Zone) -> int:
     query = """
     PREFIX kbe:<http://www.my-kbe.com/building.owl#>
     SELECT ?subject ?predicate ?object
-    WHERE {
+    WHERE {{
         ?subject a kbe:{zone}.
-    }
+    }}
     """.format(zone=zone.__class__.__name__)
 
     PARAMS = {'query': query} 
