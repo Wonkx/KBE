@@ -29,7 +29,8 @@ def test_connection() -> bool:
         return False
 
 def insert(zone: Zone) -> bool:
-    query = zone.to_sparql_insert()
+    id = count(zone)
+    query = zone.to_sparql_insert(id)
     PARAMS = {'query': query} 
 
     try:
