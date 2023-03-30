@@ -59,6 +59,13 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
     if not confirm_kwargs(kwargs, required_kwargs):
         return landing(kwargs)
 
+    if request.command == "POST":
+        #TODO: Add form validation
+
+        pairs = extract_pairs_from_form(request)
+        numberOfStoreys = int(pairs[0].split('=')[1])
+
+        
 
     html = get_html_as_string("builder")
     context = {"page_title": "builder", "heading": "heading"}
