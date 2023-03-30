@@ -57,6 +57,8 @@ def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         return landing(kwargs)
     
     if request.command == "POST":
+        #TODO: Add form validation
+
         content_len = int(request.headers.get("Content-Length"))
         post_body = request.rfile.read(content_len)
         body = post_body.decode()
