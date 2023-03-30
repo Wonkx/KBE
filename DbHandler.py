@@ -1,4 +1,5 @@
 import requests
+from models import Zone
 
 HOST_NAME = '127.0.0.1' 
 PORT_NUMBER = 3030
@@ -27,6 +28,15 @@ def test_connection() -> bool:
     except:
         return False
 
+def insert(zone: Zone) -> bool:
+    query = zone.to_sparql_insert()
+    PARAMS = {'query': query} 
+
+    try:
+        r = requests.post(url = get_update_url(), data = PARAMS)
+        return True
+    except:
+        return False
 
 if __name__ == '__main__':
     print(test_connection())
