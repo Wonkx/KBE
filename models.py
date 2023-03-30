@@ -84,13 +84,19 @@ class Apartment(Zone):
     roofThickness: float = 0.5
     numberOfRooms: int = 2
     apartmentOrigin: str = "point(0,0,floorThickness:)"
+    rooms: list[Room] = []
 
-    def add_rooms(self) -> str:
-        room = Room() #TODO: Change roomHeight and roomOrigin parameters to apartment DFA standard
-        rooms = "".join(["\n" + room.to_child(i+1) for i in range(min(self.numberOfRooms, 3))])
-        return rooms
+    def add_rooms(self) -> None:
+        rooms = [Room() for i in range(self.numberOfRooms)]
+        for i, room in enumerate(rooms):
+            room.roomHeight = "apartmentHeight:"
+            appendage = "room" + str(i) if i > 0 else "child:room1"
+            room.roomOrigin = \
+                 "apartmentOrigin: + vector(apartmentLength: -%a:roomLength:, 0, 0)" % appendage
+        self.rooms = rooms
 
     def to_knowledge_fusion(self) -> str:
+        #rooms = "".join(["\n" + room.to_child(i+1) for i in range(min(self.numberOfRooms, 3))])
         pass
 
     def to_sparql_insert(self) -> str:
