@@ -1,4 +1,5 @@
 from dataclasses import dataclass, fields
+from abc import ABC, abstractmethod
 
 def insert_parameters(dfa: str, parameters: dict) -> str:
 
@@ -28,6 +29,17 @@ def get_dfa_as_string(path: str) -> str:
     return string
 
 @dataclass
+class Zone(ABC):
+
+    @abstractmethod
+    def to_knowledge_fusion(self) -> str:
+        pass
+
+    @abstractmethod
+    def to_sparql_insert(self) -> str:
+        pass
+
+@dataclass
 class Room:
     roomLength: float = 10
     roomWidth: float = 10
@@ -46,7 +58,7 @@ class Room:
         return child
 
 @dataclass
-class Apartment:
+class Apartment(Zone):
     apartmentLength: float = 20
     apartmentWidth: float = 20
     apartmentHeight: float = 2.4
@@ -62,6 +74,9 @@ class Apartment:
 
     def to_knowledge_fusion(self) -> str:
         pass
+
+    def to_sparql_insert(self) -> str:
+        return "test"
 
 @dataclass
 class Storey:
@@ -81,3 +96,6 @@ class Building:
 
     def to_knowledge_fusion(self) -> str:
         pass
+
+if __name__ == '__main__':
+    pass
