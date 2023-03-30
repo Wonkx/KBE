@@ -33,10 +33,9 @@ def test_connection() -> bool:
 def insert(zone: Zone) -> bool:
     id = count(zone)
     query = zone.to_sparql_insert(id)
-    PARAMS = {'query': query} 
 
     try:
-        r = requests.post(url = get_update_url(), data = PARAMS)
+        r = requests.post(url = get_update_url(), params = {'query': query})
         return True
     except:
         return False
