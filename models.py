@@ -41,11 +41,11 @@ class Zone(ABC):
 
 @dataclass
 class Room:
-    roomLength: float = 10
-    roomWidth: float = 10
-    roomHeight: float = 2.4
-    wallThickness: float = 0.3
-    doorHeight: float = 1.9
+    roomLength: float | str = 10
+    roomWidth: float | str = 10
+    roomHeight: float | str = 2.4
+    wallThickness: float | str = 0.3
+    doorHeight: float | str = 1.9
     roomOrigin: str = "point(0,0,0)"
     
     def to_knowledge_fusion(self) -> str:
@@ -69,7 +69,7 @@ class Apartment(Zone):
     apartmentOrigin: str = "point(0,0,floorThickness:)"
 
     def add_rooms(self) -> str:
-        room = Room()
+        room = Room() #TODO: Change roomHeight and roomOrigin parameters to apartment DFA standard
         rooms = "".join(["\n" + room.to_child(i+1) for i in range(min(self.numberOfRooms, 3))])
         return rooms
 
