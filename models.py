@@ -100,15 +100,20 @@ class Apartment(Zone):
         #rooms = "".join(["\n" + room.to_child(i+1) for i in range(min(self.numberOfRooms, 3))])
         pass
 
-    def to_sparql_insert(self) -> str:
+    def to_sparql_insert(self, id: int) -> str:
+        area = "{:.2f}".format(self.apartmentLength * self.apartmentWidth)
+        hasBalcony, numberOfRooms = str(self.hasBalcony).lower(), str(self.numberOfRooms)
         query = """
+                PREFIX kbe:<http://www.my-kbe.com/building.owl#>
                 INSERT {
-
-                } 
-                WHERE {
-
+                    kbe:apartment{id} a kbe:Apartment.
+                    kbe:apartment{id} kbe:hasArea "{area}"^^<http://www.w3.org/2001/XMLSchema#float>.
+                    kbe:apartment{id} kbe:hasBalcony "{hasBalcony}"^^<http://www.w3.org/2001/XMLSchema#boolean>.
+                    kbe:apartment{id} kbe:hasRooms "{numberOfRooms}"^^<http://www.w3.org/2001/XMLSchema#int>.
                 }
-                """.format()
+                WHERE {
+                }
+                """.format(id=id, area=area, hasBalcony=hasBalcony, numberOfRooms=numberOfRooms)
 
         return query
 
