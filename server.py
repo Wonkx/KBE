@@ -16,7 +16,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 		s.end_headers()
 
 		html = route(s, HOST_NAME=HOST_NAME, PORT_NUMBER=PORT_NUMBER)
-		print(html)
+		print("get")
 		s.wfile.write(bytes(html, "utf-8"))
 
 	def do_POST(s):
@@ -25,6 +25,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 		s.end_headers()
 		
 		html = route(s, HOST_NAME=HOST_NAME, PORT_NUMBER=PORT_NUMBER)
+		print("post")
 		s.wfile.write(bytes(html, "utf-8"))
 
 if __name__ == '__main__':
