@@ -60,21 +60,53 @@ def count(zone: Zone) -> int:
 def get_apartment_ids_without_building(limit: int) -> list[int]:
     query = """
     PREFIX kbe:<http://www.my-kbe.com/building.owl#>
-    SELECT ?subject ?predicate ?object
+    SELECT ?apartments
     WHERE {
-        ?subject a kbe:{zone}.
+        ?apartments a kbe:Apartment.
+        ?apartments kbe:hasArea ?area.
+        ?apartments kbe:hasBuilding ?built.
+        FILTER (?built = false).
     }
     ORDER BY DESC(?area)
     LIMIT {limit}
-    """.format(zone=zone.__class__.__name__)
+    """.format(limit=limit)
 
     PARAMS = {'query': query} 
 
     try:
-        count = requests.get(url = get_query_url(), data = PARAMS)
-        return count
+        apartments = requests.get(url = get_query_url(), data = PARAMS)
+        print(apartments)
+        return [1, 2, 3]
     except:
-        return -1
+        return []
+
+def add_apartment_ids_to_building(ids: list[int]) -> None:
+
+    subjects = "\n".join(["(kbe:apartment" + str(id) + ")" for id in ids])
+
+    query = """
+    PREFIX kbe:<http://www.my-kbe.com/building.owl#>
+    DELETE {{
+        a kbe:hasBuilding false.
+    }}
+    INSERT {{
+        a kbe:hasBuilding true.
+    }}
+    WHERE {{
+        a kbe:hasBuilding false.
+        VALUES (a) {{
+            {subjects}
+        }}
+    }}
+    """.format(subjects=subjects)
+
+    PARAMS = {'query': query} 
+
+    try:
+        partments = requests.get(url = get_update_url(), data = PARAMS)
+    except:
+        pass
 
 if __name__ == '__main__':
     print(test_connection())
+    add_apartment_ids_to_building([3, 4])
