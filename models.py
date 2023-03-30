@@ -64,7 +64,7 @@ class Apartment(Zone):
     apartmentHeight: float = 2.4
     wallThickness: float = 0.3
     floorThickness: float = 0.5
-    roomThickness: float = 0.5
+    roofThickness: float = 0.5
     apartmentOrigin: str = "point(0,0,floorThickness:)"
 
     def add_rooms(self) -> str:
@@ -76,7 +76,16 @@ class Apartment(Zone):
         pass
 
     def to_sparql_insert(self) -> str:
-        return "test"
+        query = """
+                INSERT {
+
+                } 
+                WHERE {
+
+                }
+                """.format()
+
+        return query
 
 @dataclass
 class Storey:
