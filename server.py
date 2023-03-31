@@ -17,7 +17,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 		s.send_header("Content-type", "text/html")
 		s.end_headers()
 
-		html = urls.route(s, HOST_NAME=HOST_NAME, PORT_NUMBER=PORT_NUMBER)
+		html = urls.route(s, HOST_NAME=HOST_NAME, PORT_NUMBER=PORT_NUMBER, DFA_PATH=DFA_PATH)
 		s.wfile.write(bytes(html, "utf-8"))
 
 	def do_POST(s):
@@ -25,7 +25,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 		s.send_header("Content-type", "text/html")
 		s.end_headers()
 		
-		html = urls.route(s, HOST_NAME=HOST_NAME, PORT_NUMBER=PORT_NUMBER)
+		html = urls.route(s, DFA_PATH=DFA_PATH)
 		s.wfile.write(bytes(html, "utf-8"))
 
 if __name__ == '__main__':
@@ -46,8 +46,8 @@ if __name__ == '__main__':
 	httpd = server_class((HOST_NAME, PORT_NUMBER), RequestHandler)
 	
 	try:
-		httpd.serve_forever()
 		print("Server running at: http://" + HOST_NAME + ':' + str(PORT_NUMBER))
+		httpd.serve_forever()
 	except KeyboardInterrupt:
 		pass
 	httpd.server_close()

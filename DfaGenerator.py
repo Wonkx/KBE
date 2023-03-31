@@ -1,10 +1,7 @@
 from models import Building
-from server import DFA_PATH
 
-def create_dfas(building: Building):
+def create_dfas(building: Building, path: str):
     building_dfa = building.to_knowledge_fusion()
 
-    print(DFA_PATH + r"\building.dfa")
-
-    with open(DFA_PATH + r"\building.dfa", 'w') as f:
+    with open(path + r"\building.dfa", 'w') as f:
         f.write(building_dfa)
