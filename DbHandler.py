@@ -57,13 +57,15 @@ def count(zone: Zone) -> int:
     except:
         return -1
 
-def get_apartment_ids_without_building(limit: int) -> list[int]:
+def get_apartment_without_building(limit: int) -> list[dict]:
     query = """
             PREFIX kbe:<http://www.my-kbe.com/building.owl#>
-            SELECT ?apartments
+            SELECT ?apartments ?area ?balcony ?rooms
             WHERE {{
                 ?apartments a kbe:Apartment.
                 ?apartments kbe:hasArea ?area.
+                ?apartments kbe:hasBalcony ?balcony.
+                ?apartments kbe:hasRooms ?rooms.
                 #?apartments kbe:hasBuilding ?built.
                 #FILTER (?built = false).
             }}
@@ -74,7 +76,8 @@ def get_apartment_ids_without_building(limit: int) -> list[int]:
     try:
         response = requests.get(url = get_query_url(), params = {"query": query}) 
         data = response.json()
-        return [int(d["apartments"]["value"][-1]) for d in data["results"]['bindings']]
+        return [d for d in data["results"]['bindings']]
+        #return [int(d["apartments"]["value"][-1]) for d in data["results"]['bindings']]
     except:
         return []
 
@@ -106,7 +109,7 @@ def add_apartment_ids_to_building(ids: list[int]) -> None:
 if __name__ == '__main__':
     #print(test_connection())
     #add_apartment_ids_to_building([3, 4])
-    #print(get_apartment_ids_without_building(10))
+    print(get_apartment_without_building(10))
     pass
     #q = """
     #PREFIX kbe:<http://www.my-kbe.com/building.owl#>
