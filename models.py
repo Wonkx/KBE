@@ -69,7 +69,7 @@ class Apartment(Zone):
     floorThickness: float = 0.5
     roofThickness: float = 0.5
     numberOfRooms: int = 2
-    hasBalcony: bool = False
+    hasBalcony: bool | str = False
     apartmentOrigin: str = "point(0,0,floorThickness:)"
     rooms: list = field(default_factory=list)
 
@@ -85,6 +85,7 @@ class Apartment(Zone):
     def to_knowledge_fusion(self) -> str:
         dfa = get_dfa_as_string(self.__class__.__name__)
         params = dict((field.name, getattr(self, field.name)) for field in fields(self) if field.name != "rooms")
+        params["hasBalcony"] = "TRUE" if params["hasBalcony"] else "FALSE"
         dfa = insert_parameters(dfa, params)
         for i, room in enumerate(self.rooms):
             appendage = room.to_knowledge_fusion_child(i + 1)
