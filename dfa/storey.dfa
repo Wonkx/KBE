@@ -26,18 +26,18 @@ DefClass: Storey (ug_base_part);
   
 (Child) ap1: {
 	  class; Apartment;
-	  apartmentLength; 50; #change
-	  apartmentWidth; 40; #change
-	  apartmentHeight; 2; #change
+	  apartmentLength; ap1Length:;
+	  apartmentWidth; ap1Width:;
+	  apartmentHeight; ap1Height:;
 	  
 	  apartmentOrigin; storeyOrigin: + vector(-child:ap1:apartmentLength: - corridorWidth:/2, -child:ap1:apartmentWidth: - corridorWidth:/2, floorThickness:);
   };
   
    (Child) ap2: {
 	  class; Apartment;
-	  apartmentLength; 45; #change
-	  apartmentWidth; 35; #change
-	  apartmentHeight; 2; #change
+	  apartmentLength; ap2Length:;
+	  apartmentWidth; ap2Width:;
+	  apartmentHeight; ap2Height:;
 	  
 	  apartmentOrigin; storeyOrigin: + vector(-child:ap2:apartmentWidth: - corridorWidth:/2, child:ap2:apartmentLength: + corridorWidth:/2, floorThickness:);
 	  referenceFrame; framexy(storeyOrigin: + vector(0, 0, 0), vector(0,-1,0),vector(1,0,0));
@@ -45,9 +45,9 @@ DefClass: Storey (ug_base_part);
   
  (Child) ap3: {
 	  class; Apartment;
-	  apartmentLength; 40; #change
-	  apartmentWidth; 30; #change
-	  apartmentHeight; 2; #change
+	  apartmentLength; ap3Length:;
+	  apartmentWidth; ap3Width:;
+	  apartmentHeight; ap3Height:;
 
 	  apartmentOrigin; storeyOrigin: + vector(child:ap3:apartmentLength: + corridorWidth:/2, child:ap3:apartmentWidth: + corridorWidth:/2, floorThickness:);
 	  referenceFrame; framexy(storeyOrigin: + vector(0, 0, 0), vector(-1,0,0),vector(0,-1,0));
@@ -55,9 +55,9 @@ DefClass: Storey (ug_base_part);
   
      (Child) ap4: {
 	  class; Apartment;
-	  apartmentLength; 35; #change
-	  apartmentWidth; 25; #change
-	  apartmentHeight; 2; #change
+	  apartmentLength; ap4Length:;
+	  apartmentWidth; ap4Width:;
+	  apartmentHeight; ap4Height:;
 	  
 	  apartmentOrigin; storeyOrigin: + vector(child:ap4:apartmentWidth: + corridorWidth:/2, -child:ap4:apartmentLength: - corridorWidth:/2, floorThickness:);
 	  referenceFrame; framexy(storeyOrigin: + vector(0, 0, 0), vector(0,1,0),vector(-1,0,0));
