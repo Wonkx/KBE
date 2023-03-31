@@ -25,7 +25,6 @@ def test_connection() -> bool:
     try:
         r = requests.get(url = get_query_url(), params = PARAMS)
         d = r.json()
-        print(d)
         return True
     except:
         return False
@@ -33,8 +32,6 @@ def test_connection() -> bool:
 def insert(zone: Zone) -> bool:
     id = count(zone) + 1
     query = zone.to_sparql_insert(id)
-    print(query)
-    print(id)
 
     try:
         r = requests.post(url = get_update_url(), data = query)
@@ -68,8 +65,8 @@ def get_apartments_without_building(limit: int) -> list[dict]:
                 ?apartments kbe:hasArea ?area.
                 ?apartments kbe:hasBalcony ?balcony.
                 ?apartments kbe:hasRooms ?rooms.
-                #?apartments kbe:hasBuilding ?built.
-                #FILTER (?built = false).
+                ?apartments kbe:hasBuilding ?built.
+                FILTER (?built = false).
             }}
             ORDER BY DESC(?area)
             LIMIT {limit}
@@ -90,42 +87,23 @@ def add_apartment_ids_to_building(ids: list[int]) -> None:
     query = """
     PREFIX kbe:<http://www.my-kbe.com/building.owl#>
     DELETE {{
-        a kbe:hasBuilding false.
+        ?a kbe:hasBuilding false.
     }}
     INSERT {{
-        a kbe:hasBuilding true.
+        ?a kbe:hasBuilding true.
     }}
     WHERE {{
-        a kbe:hasBuilding false.
-        VALUES (a) {{
+        ?a kbe:hasBuilding false.
+        VALUES (?a) {{
             {subjects}
         }}
     }}
     """.format(subjects=subjects)
 
     try:
-        partments = requests.get(url = get_update_url(), params = {'query': query} )
+        apartments = requests.post(url = get_update_url(), data = query )
     except:
         pass
 
 if __name__ == '__main__':
-    #print(test_connection())
-    #add_apartment_ids_to_building([3, 4])
-    print(get_apartments_without_building(10))
-
     pass
-    #q = """
-    #PREFIX kbe:<http://www.my-kbe.com/building.owl#>
-    #INSERT {
-	#kbe:apartment5 a kbe:Apartment.
-	#kbe:apartment5 kbe:hasArea "30"^^<http://www.w3.org/2001/XMLSchema#float>.
-	#kbe:apartment5 kbe:hasBalcony "true"^^<http://www.w3.org/2001/XMLSchema#boolean>.
-	#kbe:apartment5 kbe:hasRooms "2"^^<http://www.w3.org/2001/XMLSchema#int>.
-  	#kbe:apartment5 kbe:hasBuilding "true"^^<http://www.w3.org/2001/XMLSchema#boolean>.
-    #}
-    #WHERE {}
-    #"""
-    #PARAMS = {"query": q}
-
-    #r = requests.post(url=get_update_url(), params=PARAMS)
-    #print(r)
