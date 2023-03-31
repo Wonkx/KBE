@@ -4,6 +4,7 @@ if TYPE_CHECKING:
     from server import RequestHandler
 from models import Apartment, Storey, Building
 from DbHandler import insert, get_apartments_without_building, add_apartment_ids_to_building
+from DfaGenerator import create_dfas
 
 
 def insert_parameters(html: str, context: dict) -> str:
@@ -90,8 +91,8 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
 
         add_apartment_ids_to_building(used_ids)
 
-
-
+        create_dfas(building)
+        print("builder post end")
 
     html = get_html_as_string("builder")
     context = {"page_title": "builder", "url": "#"}
@@ -116,7 +117,7 @@ def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         apartment.numberOfRooms = min(4, numberOfRooms)
         apartment.apartmentLength = size / apartment.apartmentWidth
         apartment.add_rooms()
-        insert(apartment)
+        print("insertion: ", insert(apartment))
 
     
     html = get_html_as_string("inhabitant")
