@@ -23,7 +23,7 @@ def test_connection() -> bool:
     PARAMS = {'query': test_query, 'format': "json"} 
     
     try:
-        r = requests.get(url = get_query_url(), data = PARAMS)
+        r = requests.get(url = get_query_url(), params = PARAMS)
         d = r.json()
         print(d)
         return True
@@ -31,11 +31,13 @@ def test_connection() -> bool:
         return False
 
 def insert(zone: Zone) -> bool:
-    id = count(zone)
+    id = count(zone) + 1
     query = zone.to_sparql_insert(id)
+    print(query)
+    print(id)
 
     try:
-        r = requests.post(url = get_update_url(), params = {'query': query})
+        r = requests.post(url = get_update_url(), data = query)
         return True
     except:
         return False
