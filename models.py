@@ -143,6 +143,13 @@ class Storey:
         params = dict((field.name, getattr(self, field.name)) for field in fields(self) if field.name != "apartments")
         return insert_parameters(dfa, params)
 
+    def to_knowledge_fusion_child(self, childNumber: int) -> str:
+        child = "(Child) " + self.__class__.__name__ + str(childNumber) \
+            + ": {\nclass; " + self.__class__.__name__ + ";\n" \
+            + "".join([(field.name + ": " + str(getattr(self, field.name)) + ";\n") for field in fields(self) if field.name != "apartments"]) \
+            + "};\n\n"
+        return child
+
 
 
 @dataclass
