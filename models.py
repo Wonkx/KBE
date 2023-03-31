@@ -135,7 +135,11 @@ class Storey:
         self.apartments = apartments
 
     def to_knowledge_fusion(self) -> str:
-        pass
+        dfa = get_dfa_as_string(self.__class__.__name__)
+        params = dict((field.name, getattr(self, field.name)) for field in fields(self) if field.name != "apartments")
+        return insert_parameters(dfa, params)
+
+
 
 @dataclass
 class Building(Zone):
