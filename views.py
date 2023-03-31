@@ -105,20 +105,18 @@ def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         return landing(kwargs)
     
     if request.command == "POST":
-        #TODO: Add form validation
-
         pairs = extract_pairs_from_form(request)
 
         try:
             balcony = True if len(pairs) == 3 else False
-            numberOfRooms = max(0, int(pairs[0].split('=')[1]))
-            size = min(256, float(pairs[1].split('=')[1]))
+            numberOfRooms = min(4, max(0, int(pairs[0].split('=')[1])))
+            size = min(256, max(7, float(pairs[1].split('=')[1])))
         except:
             balcony, numberOfRooms, size = False, 2, 64
         
         apartment = Apartment()
         apartment.hasBalcony = balcony
-        apartment.numberOfRooms = min(4, numberOfRooms)
+        apartment.numberOfRooms = numberOfRooms
         apartment.apartmentLength = size / apartment.apartmentWidth
         apartment.add_rooms()
         print("Insertion: ", insert(apartment))
