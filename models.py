@@ -151,11 +151,10 @@ class Storey:
         return child
 
 
-
 @dataclass
 class Building(Zone):
     storeys: int = 10
-    buildingOrigen: str = "point(0,0,0)"
+    buildingOrigin: str = "point(0,0,0)"
     storeys: list = field(default_factory=list)
 
     def add_storeys(self, storeys: list[Storey]) -> None:
