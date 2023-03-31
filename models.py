@@ -111,10 +111,23 @@ class Apartment(Zone):
 
 @dataclass
 class Storey:
-    storeyWallThickness: float = 0.3
-    storeyLength: int = 50
-    storeyWidth: int = 20
-    storeyHeight: float = 2.0
+    corridorWidth: float = 2
+    storeyHeight: float = 2
+    floorThickness: float = 0.5
+    wallThickness: float = 0.3
+    roofThickness: float = 0.5
+    ap1Length: float = 50
+    ap1Width: float = 40
+    ap1Height: str = "storeyHeight:"
+    ap2Length: float = 50
+    ap2Width: float = 40
+    ap2Height: str = "storeyHeight:"
+    ap3Length: float = 50
+    ap3Width: float = 40
+    ap3Height: str = "storeyHeight:"
+    ap4Length: float = 50
+    ap4Width: float = 40
+    ap4Height: str = "storeyHeight:"
     storeyOrigin: str = "point(0,0,0)"
     apartments: list = field(default_factory=list)
 

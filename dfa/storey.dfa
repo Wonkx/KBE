@@ -22,11 +22,7 @@ DefClass: Storey (ug_base_part);
 (Number Parameter) ap4Width: 25;
 (Number Parameter) ap4Height: storeyHeight:;
 
-
-
-
 (Point Parameter) storeyOrigin: point(0,0,0);
-
   
 (Child) ap1: {
 	  class; Apartment;
