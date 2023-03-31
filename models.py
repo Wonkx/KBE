@@ -161,7 +161,13 @@ class Building(Zone):
         self.storeys = storeys
 
     def to_knowledge_fusion(self) -> str:
-        pass
+        dfa = get_dfa_as_string(self.__class__.__name__)
+        params = dict((field.name, getattr(self, field.name)) for field in fields(self) if field.name != "storeys")
+        dfa = insert_parameters(dfa, params)
+        for i, storey in enumerate(self.storeys):
+            appendage = storey.to_knowledge_fusion_child(i + 1)
+            dfa += appendage
+        return dfa    
 
     def to_sparql_insert(self, id: int) -> str:
         pass
