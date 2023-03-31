@@ -57,7 +57,7 @@ def count(zone: Zone) -> int:
     except:
         return -1
 
-def get_apartment_without_building(limit: int) -> list[dict]:
+def get_apartments_without_building(limit: int) -> list[dict]:
     query = """
             PREFIX kbe:<http://www.my-kbe.com/building.owl#>
             SELECT ?apartments ?area ?balcony ?rooms
@@ -109,7 +109,8 @@ def add_apartment_ids_to_building(ids: list[int]) -> None:
 if __name__ == '__main__':
     #print(test_connection())
     #add_apartment_ids_to_building([3, 4])
-    print(get_apartment_without_building(10))
+    print(get_apartments_without_building(10))
+
     pass
     #q = """
     #PREFIX kbe:<http://www.my-kbe.com/building.owl#>
