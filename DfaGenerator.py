@@ -4,5 +4,7 @@ from server import DFA_PATH
 def create_dfas(building: Building):
     building_dfa = building.to_knowledge_fusion()
 
+    print(DFA_PATH + r"\building.dfa")
+
     with open(DFA_PATH + r"\building.dfa", 'w') as f:
         f.write(building_dfa)
