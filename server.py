@@ -2,7 +2,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from urls import route
 
 HOST_NAME = '127.0.0.1' 
-PORT_NUMBER = 1234 # Maybe set this to 1234
+PORT_NUMBER = 1234
+DFA_PATH = r"M:\DFAs\gen"
 
 class RequestHandler(BaseHTTPRequestHandler):
 	def do_HEAD(s):
