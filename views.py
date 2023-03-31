@@ -67,7 +67,7 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         pairs = extract_pairs_from_form(request)
         numberOfStoreys = int(pairs[0].split('=')[1])
 
-        apartments, used_ids, storeys = [], [], []
+        apartments, ids, used_ids, storeys = [], [], [], []
         apartments_without_building = get_apartments_without_building(numberOfStoreys * 4)
         for i, dict in enumerate(apartments_without_building):
             apartment = Apartment()
@@ -77,21 +77,23 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
             apartment.add_rooms()
 
             apartments.append(apartment)
-            used_ids.append(int(dict["apartments"]["value"][-1]))
+            ids.append(int(dict["apartments"]["value"].split("apartment")[1]))
 
             if (i + 1) % 4 == 0:
                 storey = Storey()
                 storey.add_apartments(apartments)
                 storeys.append(storey)
                 apartments.clear()
+                used_ids += ids
+                ids.clear()
 
         building = Building()
-        building.storeys = len(used_ids)
+        building.storeys = len(used_ids) // 4
         building.add_storeys(storeys)
 
         add_apartment_ids_to_building(used_ids)
 
-        create_dfas(building)
+        #create_dfas(building)
         print("builder post end")
 
     html = get_html_as_string("builder")
@@ -117,7 +119,7 @@ def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         apartment.numberOfRooms = min(4, numberOfRooms)
         apartment.apartmentLength = size / apartment.apartmentWidth
         apartment.add_rooms()
-        print("insertion: ", insert(apartment))
+        print("Insertion: ", insert(apartment))
 
     
     html = get_html_as_string("inhabitant")
