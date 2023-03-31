@@ -1,5 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from urls import route
+import urls
 
 HOST_NAME = '127.0.0.1' 
 PORT_NUMBER = 1234
@@ -16,7 +16,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 		s.send_header("Content-type", "text/html")
 		s.end_headers()
 
-		html = route(s, HOST_NAME=HOST_NAME, PORT_NUMBER=PORT_NUMBER)
+		html = urls.route(s, HOST_NAME=HOST_NAME, PORT_NUMBER=PORT_NUMBER)
 		print("get")
 		s.wfile.write(bytes(html, "utf-8"))
 
@@ -25,7 +25,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 		s.send_header("Content-type", "text/html")
 		s.end_headers()
 		
-		html = route(s, HOST_NAME=HOST_NAME, PORT_NUMBER=PORT_NUMBER)
+		html = urls.route(s, HOST_NAME=HOST_NAME, PORT_NUMBER=PORT_NUMBER)
 		print("post")
 		s.wfile.write(bytes(html, "utf-8"))
 
