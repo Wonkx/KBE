@@ -62,10 +62,11 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         return landing(kwargs)
 
     if request.command == "POST":
-        #TODO: Add form validation
-
         pairs = extract_pairs_from_form(request)
-        numberOfStoreys = int(pairs[0].split('=')[1])
+        try:
+            numberOfStoreys = max(1, int(pairs[0].split('=')[1]))
+        except:
+            numberOfStoreys = 1
 
         apartments, ids, used_ids, storeys = [], [], [], []
         apartments_without_building = get_apartments_without_building(numberOfStoreys * 4)
@@ -110,9 +111,12 @@ def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
 
         pairs = extract_pairs_from_form(request)
 
-        balcony = True if len(pairs) == 3 else False
-        numberOfRooms = int(pairs[0].split('=')[1])
-        size = float(pairs[1].split('=')[1])
+        try:
+            balcony = True if len(pairs) == 3 else False
+            numberOfRooms = max(0, int(pairs[0].split('=')[1]))
+            size = min(256, float(pairs[1].split('=')[1]))
+        except:
+            balcony, numberOfRooms, size = False, 2, 64
         
         apartment = Apartment()
         apartment.hasBalcony = balcony
