@@ -8,31 +8,4 @@ DefClass: Building (ug_base_part);
   Height; 14.4;
   Origin; point(-1, 21, 0);
  };
-
-#STOREY 1 PARAMETERS
-(Child) storey1: {
-  class; Storey;
-  (Number Parameter) corridorWidth: 2;
-  (Number Parameter) storeyHeight: 2;
-  (Number Parameter) floorThickness: 0.5;
-  (Number Parameter) wallThickness: 0.3;
-  (Number Parameter) roofThickness: 0.5;
-
-  (Number Parameter) ap1Length: 50;
-  (Number Parameter) ap1Width: 40;
-  (Number Parameter) ap1Height: storeyHeight:;
-
-  (Number Parameter) ap2Length: 45;
-  (Number Parameter) ap2Width: 35;
-  (Number Parameter) ap2Height: storeyHeight:;
-
-  (Number Parameter) ap3Length: 40;
-  (Number Parameter) ap3Width: 30;
-  (Number Parameter) ap3Height: storeyHeight:;
-
-  (Number Parameter) ap4Length: 35;
-  (Number Parameter) ap4Width: 25;
-  (Number Parameter) ap4Height: storeyHeight:;
- };
-
  
