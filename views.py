@@ -92,10 +92,8 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         building.storeys = len(used_ids) // 4
         building.add_storeys(storeys)
 
+        create_dfas(building)
         add_apartment_ids_to_building(used_ids)
-
-        #create_dfas(building)
-        print("builder post end")
 
     html = get_html_as_string("builder")
     context = {"page_title": "builder", "url": "#"}
