@@ -2,8 +2,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from server import RequestHandler
-from models import Apartment, Building
-from DbHandler import insert
+from models import Apartment, Storey, Building
+from DbHandler import insert, get_apartments_without_building, add_apartment_ids_to_building
+
 
 def insert_parameters(html: str, context: dict) -> str:
 
@@ -65,8 +66,31 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         pairs = extract_pairs_from_form(request)
         numberOfStoreys = int(pairs[0].split('=')[1])
 
+        apartments, used_ids, storeys = [], [], []
+        apartments_without_building = get_apartments_without_building(numberOfStoreys * 4)
+        for i, dict in enumerate(apartments_without_building):
+            apartment = Apartment()
+            apartment.apartmentLength = float(dict["area"]["value"]) / apartment.apartmentWidth
+            apartment.hasBalcony = True if dict["balcony"]["value"] == "true" else False
+            apartment.numberOfRooms = int(dict["rooms"]["value"])
+            apartment.add_rooms()
+
+            apartments.append(apartment)
+            used_ids.append(int(dict["apartments"]["value"][-1]))
+
+            if (i + 1) % 4 == 0:
+                storey = Storey()
+                storey.add_apartments(apartments)
+                storeys.append(storey)
+                apartments.clear()
+
         building = Building()
-        building.storeys = numberOfStoreys
+        building.storeys = len(used_ids)
+        building.add_storeys(storeys)
+
+        add_apartment_ids_to_building(used_ids)
+
+
 
 
     html = get_html_as_string("builder")
