@@ -132,7 +132,11 @@ class Storey:
     apartments: list = field(default_factory=list)
 
     def add_apartments(self, apartments: list[Apartment]) -> None:
-        self.apartments = apartments
+        for i, apartment in enumerate(apartments):
+            if i < 4:
+                setattr(self, "ap" + str(i + 1) + "Length", apartment.apartmentLength)
+                setattr(self, "ap" + str(i + 1) + "Width", apartment.apartmentWidth)
+        self.apartments = apartments[:4]
 
     def to_knowledge_fusion(self) -> str:
         dfa = get_dfa_as_string(self.__class__.__name__)
