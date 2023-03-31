@@ -57,7 +57,7 @@ class Room:
         child = "(Child) " + self.__class__.__name__ + str(childNumber) \
             + ": {\nclass; " + self.__class__.__name__ + ";\n" \
             + "".join([(field.name + ": " + str(getattr(self, field.name)) + ";\n") for field in fields(self)]) \
-            + "};"
+            + "};\n\n"
         return child
 
 @dataclass
@@ -83,8 +83,13 @@ class Apartment(Zone):
         self.rooms = rooms
 
     def to_knowledge_fusion(self) -> str:
-        #rooms = "".join(["\n" + room.to_child(i+1) for i in range(min(self.numberOfRooms, 3))])
-        pass
+        dfa = get_dfa_as_string(self.__class__.__name__)
+        params = dict((field.name, getattr(self, field.name)) for field in fields(self) if field.name != "rooms")
+        dfa = insert_parameters(dfa, params)
+        for i, room in enumerate(self.rooms):
+            appendage = room.to_knowledge_fusion_child(i + 1)
+            dfa += appendage
+        return dfa    
 
     def to_sparql_insert(self, id: int) -> str:
         area = "{:.2f}".format(self.apartmentLength * self.apartmentWidth)
@@ -135,5 +140,4 @@ class Building(Zone):
         pass
 
 if __name__ == '__main__':
-    print("test")
     pass
