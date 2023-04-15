@@ -145,8 +145,11 @@ class Storey:
         return insert_parameters(dfa, params)
 
     def to_knowledge_fusion_child(self, childNumber: int) -> str:
+        self.storeyOrigin = self.storeyOrigin[:self.storeyOrigin.rfind(',') + 1] \
+            + str((childNumber - 1) * (self.storeyHeight + self.floorThickness + self.roofThickness)) + ")"
+
         ignore = ["apartments"]
-        childize_attr = lambda attr: attr if attr[-1] != ':' else "Child:" + self.__class__.__name__ + str(childNumber) + ":" + attr        
+        childize_attr = lambda attr: attr if attr[-1] != ':' else "Child:" + self.__class__.__name__ + str(childNumber) + ":" + attr 
         parameters = "".join([(field.name + "; " + childize_attr(str(getattr(self, field.name))) + ";\n") for field in fields(self) if field.name not in ignore])
 
         child = "(Child) " + self.__class__.__name__ + str(childNumber) \
@@ -178,4 +181,8 @@ class Building(Zone):
         pass
 
 if __name__ == '__main__':
+
+    s = Storey()
+    s.to_knowledge_fusion_child(2)
+
     pass
