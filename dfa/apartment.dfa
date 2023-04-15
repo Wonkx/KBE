@@ -2,6 +2,8 @@
 DefClass: Apartment (ug_base_part);
 (Number Parameter) apartmentLength: 20;
 (Number Parameter) apartmentWidth: 20;
+(Number Parameter) apartmentArea: apartmentLength: * apartmentWidth:;
+(Number Parameter) scalingFactor: 0.30;
 (Number Parameter) apartmentHeight: 2.4;
 (Number Parameter) wallThickness: 0.3;
 (Number Parameter) floorThickness: 0.5;
@@ -38,26 +40,6 @@ DefClass: Apartment (ug_base_part);
   Target; {outline:};
   };
   
-  (Child) room: {  
-  class; Room;
-  roomLength; 10;
-  roomWidth; 10; 
-  roomHeight; apartmentHeight:;
-  roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room:roomLength:, 0, 0);
-  };
-  
-  
-  (Child) windowRoom: { 
-  class; ug_block;
-  Length; 4;
-  Width; wallThickness:;
-  Height; 1.5;
-  Origin; apartmentOrigin: + vector(apartmentLength: - child:room:roomLength:/2 - child:windowRoom:Length:/2, 0, 0.5);
-  Operation; Subtract;
-  Target; {outline:};
-  };
-  
-  
    (Child) windowBalc: {
   class; ug_block;
   Length; wallThickness:;
@@ -80,7 +62,7 @@ DefClass: Apartment (ug_base_part);
   
   (Child) balc: {
   class; if (hasBalcony: = TRUE) then Balcony else NullDesign;
-  balconyLength; 5;
+  balconyLength; 3;
   balconyWidth; 3;
   balconyHeight; 1;
   balconyOrigin; apartmentOrigin: + vector(0, -child:balconyWidth:, -floorThickness:);
@@ -118,5 +100,25 @@ DefClass: Apartment (ug_base_part);
   Width; apartmentWidth:;
   Height; roofThickness:;
   Origin; apartmentOrigin:+ vector(0, 0, apartmentHeight:);
+  };
+
+
+  (Child) room: {  
+  class; Room;
+  roomLength; 5;
+  roomWidth; 5; 
+  roomHeight; apartmentHeight:;
+  roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room:roomLength:, 0, 0);
+  };
+  
+  
+  (Child) windowRoom: { 
+  class; ug_block;
+  Length; child:room:roomLength: - 4*wallThickness:;
+  Width; wallThickness:;
+  Height; 1.5;
+  Origin; apartmentOrigin: + vector(apartmentLength: - child:room:roomLength:/2 - child:windowRoom:Length:/2, 0, 0.5);
+  Operation; Subtract;
+  Target; {outline:};
   };
   
