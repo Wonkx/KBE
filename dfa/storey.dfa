@@ -9,22 +9,22 @@ DefClass: Storey (ug_base_part);
 (Number Parameter) ap1Length: 50;
 (Number Parameter) ap1Width: 40;
 (Number Parameter) ap1Height: storeyHeight:;
-(Number Parameter) ap1HasBalcony: FALSE:;
+(Number Parameter) ap1HasBalcony: FALSE;
 
 (Number Parameter) ap2Length: 45;
 (Number Parameter) ap2Width: 35;
 (Number Parameter) ap2Height: storeyHeight:;
-(Number Parameter) ap2HasBalcony: FALSE:;
+(Number Parameter) ap2HasBalcony: FALSE;
 
 (Number Parameter) ap3Length: 40;
 (Number Parameter) ap3Width: 30;
 (Number Parameter) ap3Height: storeyHeight:;
-(Number Parameter) ap3HasBalcony: FALSE:;
+(Number Parameter) ap3HasBalcony: FALSE;
 
 (Number Parameter) ap4Length: 35;
 (Number Parameter) ap4Width: 25;
 (Number Parameter) ap4Height: storeyHeight:;
-(Number Parameter) ap4HasBalcony: FALSE:;
+(Number Parameter) ap4HasBalcony: FALSE;
 
 (Point Parameter) storeyOrigin: point(0,0,0);
   
