@@ -95,14 +95,12 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         create_dfas(building, kwargs["DFA_PATH"])
         add_apartment_ids_to_building(used_ids)
 
-    print(kwargs["DFA_PATH"])
-
     html = get_html_as_string("builder")
     context = {"page_title": "builder", "url": "#"}
     return insert_parameters(html, context)
 
 def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
-    required_kwargs = ["HOST_NAME", "PORT_NUMBER"]
+    required_kwargs = ["DFA_PATH"]
     if not confirm_kwargs(kwargs, required_kwargs):
         return landing(kwargs)
     
@@ -125,7 +123,6 @@ def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
 
     
     html = get_html_as_string("inhabitant")
-    url = "http://" + kwargs["HOST_NAME"] + ":" + str(kwargs["PORT_NUMBER"])
     context = {"page_title": "Inhabitant", "url": "#"}
     html = insert_parameters(html, context)
 
