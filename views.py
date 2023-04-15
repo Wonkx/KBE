@@ -72,7 +72,7 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         apartments_without_building = get_apartments_without_building(numberOfStoreys * 4)
         for i, dict in enumerate(apartments_without_building):
             apartment = Apartment()
-            apartment.apartmentLength = float(dict["area"]["value"]) / apartment.apartmentWidth
+            apartment.apartmentLength = float(dict["area"]["value"]) / float(apartment.apartmentWidth)
             apartment.hasBalcony = True if dict["balcony"]["value"] == "true" else False
             apartment.numberOfRooms = int(dict["rooms"]["value"])
             apartment.add_rooms()
@@ -115,9 +115,9 @@ def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
             balcony, numberOfRooms, size = False, 2, 64
         
         apartment = Apartment()
-        apartment.hasBalcony = balcony
-        apartment.numberOfRooms = numberOfRooms
-        apartment.apartmentLength = size / apartment.apartmentWidth
+        apartment.hasBalcony = str(balcony)
+        apartment.numberOfRooms = str(numberOfRooms)
+        apartment.apartmentLength = size / float(apartment.apartmentWidth)
         apartment.add_rooms()
         print("Insertion: ", insert(apartment))
 
