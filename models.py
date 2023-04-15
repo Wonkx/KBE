@@ -62,19 +62,18 @@ class Room:
 
 @dataclass
 class Apartment(Zone):
-    apartmentLength: float = 20
-    apartmentWidth: float = 20
-    apartmentHeight: float = 2.4
-    wallThickness: float = 0.3
-    floorThickness: float = 0.5
-    roofThickness: float = 0.5
-    numberOfRooms: int = 2
-    hasBalcony: bool | str = False
-    apartmentOrigin: str = "point(0,0,floorThickness:)"
     rooms: list = field(default_factory=list)
 
+    def __post_init__(self) -> None:
+        dfa = get_dfa_as_string(self.__class__.__name__)
+        lines = [line for line in dfa.split("\n") if line.find(" Parameter) ") >= 0]
+        attributes = [line[line.find(") ") + 2:line.rfind(": ")] for line in lines]
+        values = [line[line.rfind(": ") + 2:-1] for line in lines]
+        for attribute, value in zip(attributes, values):
+            setattr(self, attribute, value)
+
     def add_rooms(self) -> None:
-        rooms = [Room() for i in range(self.numberOfRooms)]
+        rooms = [Room() for i in range(int(self.numberOfRooms))]
         for i, room in enumerate(rooms):
             room.roomHeight = "apartmentHeight:"
             appendage = "room" + str(i) if i > 0 else "child:room1"
@@ -83,8 +82,9 @@ class Apartment(Zone):
         self.rooms = rooms
 
     def to_knowledge_fusion(self) -> str:
+        ignore = ["rooms"]
         dfa = get_dfa_as_string(self.__class__.__name__)
-        params = dict((field.name, getattr(self, field.name)) for field in fields(self) if field.name != "rooms")
+        params = dict((field, getattr(self, field)) for field in self.__dict__.keys() if field not in ignore)
         params["hasBalcony"] = "TRUE" if params["hasBalcony"] else "FALSE"
         dfa = insert_parameters(dfa, params)
         for i, room in enumerate(self.rooms):
@@ -93,7 +93,7 @@ class Apartment(Zone):
         return dfa    
 
     def to_sparql_insert(self, id: int) -> str:
-        area = "{:.2f}".format(self.apartmentLength * self.apartmentWidth)
+        area = "{:.2f}".format(float(self.apartmentLength) * float(self.apartmentWidth))
         hasBalcony, numberOfRooms = str(self.hasBalcony).lower(), str(self.numberOfRooms)
         query = """
                 PREFIX kbe:<http://www.my-kbe.com/building.owl#>
@@ -114,7 +114,7 @@ class Apartment(Zone):
 class Storey:
     apartments: list = field(default_factory=list)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         dfa = get_dfa_as_string(self.__class__.__name__)
         lines = [line for line in dfa.split("\n") if line.find(" Parameter) ") >= 0]
         attributes = [line[line.find(") ") + 2:line.rfind(": ")] for line in lines]
