@@ -145,9 +145,13 @@ class Storey:
         return insert_parameters(dfa, params)
 
     def to_knowledge_fusion_child(self, childNumber: int) -> str:
+        ignore = ["apartments"]
+        childize_attr = lambda attr: attr if attr[-1] != ':' else "Child:" + self.__class__.__name__ + str(childNumber) + ":" + attr        
+        parameters = "".join([(field.name + "; " + childize_attr(str(getattr(self, field.name))) + ";\n") for field in fields(self) if field.name not in ignore])
+
         child = "(Child) " + self.__class__.__name__ + str(childNumber) \
             + ": {\nclass; " + self.__class__.__name__ + ";\n" \
-            + "".join([(field.name + ": " + str(getattr(self, field.name)) + ";\n") for field in fields(self) if field.name != "apartments"]) \
+            + parameters \
             + "};\n\n"
         return child
 
