@@ -112,25 +112,15 @@ class Apartment(Zone):
 
 @dataclass
 class Storey:
-    corridorWidth: float = 2
-    storeyHeight: float = 2
-    floorThickness: float = 0.5
-    wallThickness: float = 0.3
-    roofThickness: float = 0.5
-    ap1Length: float = 50
-    ap1Width: float = 40
-    ap1Height: str = "storeyHeight:"
-    ap2Length: float = 50
-    ap2Width: float = 40
-    ap2Height: str = "storeyHeight:"
-    ap3Length: float = 50
-    ap3Width: float = 40
-    ap3Height: str = "storeyHeight:"
-    ap4Length: float = 50
-    ap4Width: float = 40
-    ap4Height: str = "storeyHeight:"
-    storeyOrigin: str = "point(0,0,0)"
     apartments: list = field(default_factory=list)
+
+    def __post_init__(self):
+        dfa = get_dfa_as_string(self.__class__.__name__)
+        lines = [line for line in dfa.split("\n") if line.find(" Parameter) ") >= 0]
+        attributes = [line[line.find(") ") + 2:line.rfind(": ")] for line in lines]
+        values = [line[line.rfind(": ") + 2:-1] for line in lines]
+        for attribute, value in zip(attributes, values):
+            setattr(self, attribute, value)
 
     def add_apartments(self, apartments: list[Apartment]) -> None:
         for i, apartment in enumerate(apartments):
@@ -141,7 +131,7 @@ class Storey:
 
     def to_knowledge_fusion(self) -> str:
         dfa = get_dfa_as_string(self.__class__.__name__)
-        params = dict((field.name, getattr(self, field.name)) for field in fields(self) if field.name != "apartments")
+        params = dict((field, getattr(self, field)) for field in self.__dict__.keys() if field != "apartments")
         return insert_parameters(dfa, params)
 
     def to_knowledge_fusion_child(self, childNumber: int) -> str:
@@ -150,7 +140,7 @@ class Storey:
 
         ignore = ["apartments"]
         childize_attr = lambda attr: attr if attr[-1] != ':' else "Child:" + self.__class__.__name__ + str(childNumber) + ":" + attr 
-        parameters = "".join([(field.name + "; " + childize_attr(str(getattr(self, field.name))) + ";\n") for field in fields(self) if field.name not in ignore])
+        parameters = "".join([(field + "; " + childize_attr(str(getattr(self, field))) + ";\n") for field in self.__dict__.keys() if field not in ignore])
 
         child = "(Child) " + self.__class__.__name__ + str(childNumber) \
             + ": {\nclass; " + self.__class__.__name__ + ";\n" \
@@ -181,8 +171,4 @@ class Building(Zone):
         pass
 
 if __name__ == '__main__':
-
-    s = Storey()
-    s.to_knowledge_fusion_child(2)
-
     pass
