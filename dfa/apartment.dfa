@@ -1,7 +1,7 @@
 #! UG/KF 17.0
 DefClass: Apartment (ug_base_part);
 (Number Parameter) apartmentLength: 20;
-(Number Parameter) apartmentWidth: 20;
+(Number Parameter) apartmentWidth: 8;
 (Number Parameter) apartmentArea: apartmentLength: * apartmentWidth:;
 (Number Parameter) scalingFactor: 0.30;
 (Number Parameter) apartmentHeight: 2.4;
