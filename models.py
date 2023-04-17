@@ -39,6 +39,14 @@ class Zone(ABC):
     def to_sparql_insert(self, id: int) -> str:
         pass
 
+    def add_dfa_parameters_as_class_attributes(self) -> None:
+        dfa = get_dfa_as_string(self.__class__.__name__)
+        lines = [line for line in dfa.split("\n") if line.find(" Parameter) ") >= 0]
+        attributes = [line[line.find(") ") + 2:line.rfind(": ")] for line in lines]
+        values = [line[line.rfind(": ") + 2:-1] for line in lines]
+        for attribute, value in zip(attributes, values):
+            setattr(self, attribute, value)
+
 @dataclass
 class Room:
     roomLength: float | str = 10
@@ -65,12 +73,7 @@ class Apartment(Zone):
     rooms: list = field(default_factory=list)
 
     def __post_init__(self) -> None:
-        dfa = get_dfa_as_string(self.__class__.__name__)
-        lines = [line for line in dfa.split("\n") if line.find(" Parameter) ") >= 0]
-        attributes = [line[line.find(") ") + 2:line.rfind(": ")] for line in lines]
-        values = [line[line.rfind(": ") + 2:-1] for line in lines]
-        for attribute, value in zip(attributes, values):
-            setattr(self, attribute, value)
+        self.add_dfa_parameters_as_class_attributes()
 
     def add_rooms(self) -> None:
         rooms = [Room() for i in range(int(self.numberOfRooms))]
@@ -111,16 +114,11 @@ class Apartment(Zone):
         return query
 
 @dataclass
-class Storey:
+class Storey(Zone):
     apartments: list = field(default_factory=list)
 
     def __post_init__(self) -> None:
-        dfa = get_dfa_as_string(self.__class__.__name__)
-        lines = [line for line in dfa.split("\n") if line.find(" Parameter) ") >= 0]
-        attributes = [line[line.find(") ") + 2:line.rfind(": ")] for line in lines]
-        values = [line[line.rfind(": ") + 2:-1] for line in lines]
-        for attribute, value in zip(attributes, values):
-            setattr(self, attribute, value)
+        self.add_dfa_parameters_as_class_attributes()
 
     def add_apartments(self, apartments: list[Apartment]) -> None:
         for i, apartment in enumerate(apartments):
@@ -149,6 +147,8 @@ class Storey:
             + "};\n\n"
         return child
 
+    def to_sparql_insert(self, id: int) -> str:
+        pass
 
 @dataclass
 class Building(Zone):
