@@ -1,7 +1,7 @@
 #! UG/KF 17.0
 DefClass: Building (ug_base_part);
 (Point Parameter) buildingOrigin: point(0,0,0);
-(Point Parameter) fireHeight: 3;
+(Number Parameter) fireHeight: 3;
 
 (Child) fire: {
   class; ug_cylinder;
