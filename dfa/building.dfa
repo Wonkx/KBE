@@ -7,6 +7,6 @@ DefClass: Building (ug_base_part);
   class; ug_cylinder;
   Diameter; 2;
   Height; fireHeight:;
-  Origin; point(-1, 21, 0);
+  Origin; buildingOrigin:;
  };
  
