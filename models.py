@@ -31,6 +31,14 @@ def get_dfa_as_string(path: str) -> str:
 @dataclass
 class Zone(ABC):
 
+    def add_dfa_parameters_as_class_attributes(self) -> None:
+        dfa = get_dfa_as_string(self.__class__.__name__)
+        lines = [line for line in dfa.split("\n") if line.find(" Parameter) ") >= 0]
+        attributes = [line[line.find(") ") + 2:line.rfind(": ")] for line in lines]
+        values = [line[line.rfind(": ") + 2:-1] for line in lines]
+        for attribute, value in zip(attributes, values):
+            setattr(self, attribute, value)
+
     @abstractmethod
     def to_knowledge_fusion(self) -> str:
         pass
@@ -39,13 +47,6 @@ class Zone(ABC):
     def to_sparql_insert(self, id: int) -> str:
         pass
 
-    def add_dfa_parameters_as_class_attributes(self) -> None:
-        dfa = get_dfa_as_string(self.__class__.__name__)
-        lines = [line for line in dfa.split("\n") if line.find(" Parameter) ") >= 0]
-        attributes = [line[line.find(") ") + 2:line.rfind(": ")] for line in lines]
-        values = [line[line.rfind(": ") + 2:-1] for line in lines]
-        for attribute, value in zip(attributes, values):
-            setattr(self, attribute, value)
 
 @dataclass
 class Room:
@@ -150,18 +151,27 @@ class Storey(Zone):
     def to_sparql_insert(self, id: int) -> str:
         pass
 
+
 @dataclass
 class Building(Zone):
-    storeys: int = 10
     buildingOrigin: str = "point(0,0,0)"
     storeys: list = field(default_factory=list)
 
     def add_storeys(self, storeys: list[Storey]) -> None:
         self.storeys = storeys
 
+    def get_fire_stair_height(self) -> str:
+        height = 0
+        for storey in self.storeys:
+            storeyHeight, floorThickness, roofThickness = float(storey.storeyHeight), float(storey.floorThickness), float(storey.roofThickness)
+            height += (storeyHeight + floorThickness + roofThickness)
+
+        return str(height)
+
     def to_knowledge_fusion(self) -> str:
         dfa = get_dfa_as_string(self.__class__.__name__)
         params = dict((field.name, getattr(self, field.name)) for field in fields(self) if field.name != "storeys")
+        params["fireHeight"] = self.get_fire_stair_height()
         dfa = insert_parameters(dfa, params)
         for i, storey in enumerate(self.storeys):
             appendage = storey.to_knowledge_fusion_child(i + 1)
