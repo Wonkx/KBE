@@ -135,8 +135,9 @@ class Storey:
         return insert_parameters(dfa, params)
 
     def to_knowledge_fusion_child(self, childNumber: int) -> str:
+        storeyHeight, floorThickness, roofThickness = float(self.storeyHeight), float(self.floorThickness), float(self.roofThickness)
         self.storeyOrigin = self.storeyOrigin[:self.storeyOrigin.rfind(',') + 1] \
-            + str((childNumber - 1) * (self.storeyHeight + self.floorThickness + self.roofThickness)) + ")"
+            + str((childNumber - 1) * (storeyHeight + floorThickness + roofThickness)) + ")"
 
         ignore = ["apartments"]
         childize_attr = lambda attr: attr if attr[-1] != ':' else "Child:" + self.__class__.__name__ + str(childNumber) + ":" + attr 
