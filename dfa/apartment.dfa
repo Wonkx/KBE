@@ -1,12 +1,7 @@
 #! UG/KF 17.0
 DefClass: Apartment (ug_base_part);
-<<<<<<< Updated upstream
 (Number Parameter) apartmentLength: 20;
 (Number Parameter) apartmentWidth: 8;
-=======
-(Number Parameter) apartmentLength: 13;
-(Number Parameter) apartmentWidth: 13;
->>>>>>> Stashed changes
 (Number Parameter) apartmentArea: apartmentLength: * apartmentWidth:;
 (Number Parameter) scalingFactor: apartmentWidth: * 0.30;
 (Number Parameter) apartmentHeight: 2.4;
