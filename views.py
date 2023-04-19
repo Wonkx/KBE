@@ -72,9 +72,9 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         apartments_without_building = get_apartments_without_building(numberOfStoreys * 4)
         for i, dict in enumerate(apartments_without_building):
             apartment = Apartment()
-            apartment.apartmentLength = float(dict["area"]["value"]) / float(apartment.apartmentWidth)
-            apartment.hasBalcony = True if dict["balcony"]["value"] == "true" else False
-            apartment.numberOfRooms = int(dict["rooms"]["value"])
+            apartment.apartmentLength = str(float(dict["area"]["value"]) / float(apartment.apartmentWidth))
+            apartment.hasBalcony = "TRUE" if dict["balcony"]["value"] == "true" else "FALSE"
+            apartment.numberOfRooms = dict["rooms"]["value"]
             apartment.add_rooms()
 
             apartments.append(apartment)
