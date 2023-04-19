@@ -1,28 +1,35 @@
 #! UG/KF 17.0
 DefClass: Kitchen (ug_base_part);
-(Number Parameter) apLength: 4;
-(Number Parameter) apWidth: 1;
-(Number Parameter) kitchenScalingFactor: 1;
+(Number Parameter) apWallThickness: 0.3;
+(Number Parameter) apLength: 20;
+(Number Parameter) apWidth: 8;
+(Number Parameter) kitchenScalingFactor: 0.3;
 (Number Parameter) counterLength: 5;
-(Number Parameter) counterWidth: 1;
+(Number Parameter) counterWidth: 0.50;
 (Number Parameter) counterHeight: 1;
 (Point Parameter) kitchenOrigin: point(0,0,0);
 
  (Child) counter1: {
   class; ug_block;
-  Length; 0.50;
-  Width; counterLength:;
+  Length; counterWidth:;
+  Width; apWidth: * kitchenScalingFactor:;
   Height; counterHeight:;
-  Origin; kitchenOrigin: + vector(0, -counterLength:/2 - counterWidth:, 0);
+  Origin; kitchenOrigin: + vector(apWallThickness:, apWidth: - child:counter1:Width: - counterWidth: - apWallThickness:, 0);
   };
+
+(Child) counter2: {
+class; ug_block;
+Length; apLength: * kitchenScalingFactor: * 0.70;
+Width; counterWidth:;
+Height; counterHeight:;
+Origin; child:counter1:Origin: + vector(0, child:counter1:Width:, 0);
+};
   
   
-  
-  (Child) island: {
-  class; ug_block;
-  Length; 2*counterWidth:;
-  Width; 2*counterWidth:;
-  Height; counterHeight:;
-  Origin; kitchenOrigin: + vector(counterLength:/2, -counterLength:/2, 0);
-  };
-  
+(Child) island: {
+class; ug_block;
+Length; 2*counterWidth:;
+Width; 2*counterWidth:;
+Height; counterHeight:;
+Origin; child:counter1:Origin: + vector(counterWidth:*2, child:counter1:Width: - counterWidth:*3 , 0);
+};

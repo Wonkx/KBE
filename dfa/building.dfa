@@ -1,7 +1,11 @@
 #! UG/KF 17.0
 DefClass: Building (ug_base_part);
 (Point Parameter) buildingOrigin: point(0,0,0);
+<<<<<<< Updated upstream
 (Number Parameter) elevatorHeight: 12.0;
+=======
+(Number Parameter) fireHeight: 3.0;
+>>>>>>> Stashed changes
 
 (Child) elevator: {
   class; ug_block;
@@ -10,4 +14,37 @@ DefClass: Building (ug_base_part);
   Height; elevatorHeight:;
   Origin; buildingOrigin:;
  };
+<<<<<<< Updated upstream
+=======
+ 
+ (Child) Storey1: {
+class; Storey;
+corridorWidth; 2;
+storeyHeight; 2;
+floorThickness; 0.5;
+wallThickness; 0.3;
+roofThickness; 0.5;
+ap1Length; 20.000000000000004;
+ap1Width; 9.999999999999998;
+ap1Height; Child:Storey1:storeyHeight:;
+ap1HasNumberOfRooms; 3;
+ap1HasBalcony; TRUE;
+ap2Length; 17.320508075688775;
+ap2Width; 8.660254037844386;
+ap2Height; Child:Storey1:storeyHeight:;
+ap2HasNumberOfRooms; 1;
+ap2HasBalcony; TRUE;
+ap3Length; 12.5;
+ap3Width; 8;
+ap3Height; Child:Storey1:storeyHeight:;
+ap3HasNumberOfRooms; 2;
+ap3HasBalcony; FALSE;
+ap4Length; 7.5;
+ap4Width; 8;
+ap4Height; Child:Storey1:storeyHeight:;
+ap4HasNumberOfRooms; 4;
+ap4HasBalcony; FALSE;
+storeyOrigin; point(0,0,0.0);
+};
+>>>>>>> Stashed changes
 

@@ -80,9 +80,10 @@ DefClass: Apartment (ug_base_part);
   
    (Child) kitchen: {
   class; Kitchen;
-  apLength; apartmentLength;
-  apWidth; apartmentWidth;
-  kitchenOrigin; apartmentOrigin: + vector(wallThickness:, apartmentWidth: -wallThickness: -child:counterWidth:-1 , 0);
+  apWallThickness; wallThickness:;
+  apLength; apartmentLength:;
+  apWidth; apartmentWidth:;
+  kitchenOrigin; apartmentOrigin: + vector(0, 0, 0);
   };
   
   
