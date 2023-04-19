@@ -163,7 +163,7 @@ class Building(Zone):
     def add_storeys(self, storeys: list[Storey]) -> None:
         self.storeys = storeys
 
-    def get_fire_stair_height(self) -> str:
+    def get_elevator_height(self) -> str:
         height = 0
         for storey in self.storeys:
             storeyHeight, floorThickness, roofThickness = float(storey.storeyHeight), float(storey.floorThickness), float(storey.roofThickness)
@@ -174,7 +174,7 @@ class Building(Zone):
     def to_knowledge_fusion(self) -> str:
         dfa = get_dfa_as_string(self.__class__.__name__)
         params = dict((field.name, getattr(self, field.name)) for field in fields(self) if field.name != "storeys")
-        params["fireHeight"] = self.get_fire_stair_height()
+        params["elevatorHeight"] = self.get_elevator_height()
         dfa = insert_parameters(dfa, params)
         for i, storey in enumerate(self.storeys):
             appendage = storey.to_knowledge_fusion_child(i + 1)
