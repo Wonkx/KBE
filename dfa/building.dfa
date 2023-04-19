@@ -1,7 +1,11 @@
 #! UG/KF 17.0
 DefClass: Building (ug_base_part);
 (Point Parameter) buildingOrigin: point(0,0,0);
+<<<<<<< Updated upstream
 (Number Parameter) fireHeight: 3.0;
+=======
+(Number Parameter) fireHeight: 12.0;
+>>>>>>> Stashed changes
 
 (Child) fire: {
   class; ug_cylinder;
@@ -9,4 +13,112 @@ DefClass: Building (ug_base_part);
   Height; fireHeight:;
   Origin; buildingOrigin:;
  };
- 
+ (Child) Storey1: {
+class; Storey;
+corridorWidth; 2;
+storeyHeight; 2;
+floorThickness; 0.5;
+wallThickness; 0.3;
+roofThickness; 0.5;
+ap1Length; 1.2*8.625;
+ap1Width; 1.2*8;
+ap1Height; Child:Storey1:storeyHeight:;
+ap1HasBalcony; TRUE;
+ap2Length; 8.5;
+ap2Width; 8;
+ap2Height; Child:Storey1:storeyHeight:;
+ap2HasBalcony; FALSE;
+ap3Length; 8.375;
+ap3Width; 8;
+ap3Height; Child:Storey1:storeyHeight:;
+ap3HasNumberOfRooms; 1;
+ap3HasBalcony; TRUE;
+ap4Length; 8.25;
+ap4Width; 8;
+ap4Height; Child:Storey1:storeyHeight:;
+ap4HasBalcony; FALSE;
+storeyOrigin; point(0,0,0.0);
+};
+
+(Child) Storey2: {
+class; Storey;
+corridorWidth; 2;
+storeyHeight; 2;
+floorThickness; 0.5;
+wallThickness; 0.3;
+roofThickness; 0.5;
+ap1Length; 8.125;
+ap1Width; 8;
+ap1Height; Child:Storey2:storeyHeight:;
+ap1HasBalcony; TRUE;
+ap2Length; 8.0;
+ap2Width; 8;
+ap2Height; Child:Storey2:storeyHeight:;
+ap2HasBalcony; TRUE;
+ap3Length; 1.2*8.0;
+ap3Width; 1.2*8;
+ap3Height; Child:Storey2:storeyHeight:;
+ap3HasNumberOfRooms; 1;
+ap3HasBalcony; FALSE;
+ap4Length; 7.875;
+ap4Width; 8;
+ap4Height; Child:Storey2:storeyHeight:;
+ap4HasNumberOfRooms; 1;
+ap4HasBalcony; TRUE;
+storeyOrigin; point(0,0,3.0);
+};
+
+(Child) Storey3: {
+  class; Storey;
+  corridorWidth; 2;
+  storeyHeight; 2;
+  floorThickness; 0.5;
+  wallThickness; 0.3;
+  roofThickness; 0.5;
+  ap1Length; 8.625;
+  ap1Width; 8;
+  ap1Height; Child:Storey1:storeyHeight:;
+  ap1HasBalcony; FALSE;
+  ap2Length; 8.5;
+  ap2Width; 8;
+  ap2Height; Child:Storey1:storeyHeight:;
+  ap2HasBalcony; FALSE;
+  ap3Length; 8.375;
+  ap3Width; 8;
+  ap3Height; Child:Storey1:storeyHeight:;
+  ap3HasNumberOfRooms; 1;
+  ap3HasBalcony; TRUE;
+  ap4Length; 1.2*8.25;
+  ap4Width; 1.2*8;
+  ap4Height; Child:Storey1:storeyHeight:;
+  ap4HasBalcony; FALSE;
+  storeyOrigin; point(0,0,6);
+  };
+
+  (Child) Storey4: {
+    class; Storey;
+    corridorWidth; 2;
+    storeyHeight; 2;
+    floorThickness; 0.5;
+    wallThickness; 0.3;
+    roofThickness; 0.5;
+    ap1Length; 8.125;
+    ap1Width; 8;
+    ap1Height; Child:Storey2:storeyHeight:;
+    ap1HasBalcony; TRUE;
+    ap2Length; 1.3*8.0;
+    ap2Width; 1.3*8;
+    ap2Height; Child:Storey2:storeyHeight:;
+    ap2HasBalcony; TRUE;
+    ap3Length; 8.0;
+    ap3Width; 8;
+    ap3Height; Child:Storey2:storeyHeight:;
+    ap3HasNumberOfRooms; 1;
+    ap3HasBalcony; FALSE;
+    ap4Length; 7.875;
+    ap4Width; 8;
+    ap4Height; Child:Storey2:storeyHeight:;
+    ap4HasNumberOfRooms; 1;
+    ap4HasBalcony; TRUE;
+    storeyOrigin; point(0,0,9);
+    };

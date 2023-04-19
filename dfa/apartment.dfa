@@ -1,9 +1,14 @@
 #! UG/KF 17.0
 DefClass: Apartment (ug_base_part);
+<<<<<<< Updated upstream
 (Number Parameter) apartmentLength: 20;
 (Number Parameter) apartmentWidth: 8;
+=======
+(Number Parameter) apartmentLength: 13;
+(Number Parameter) apartmentWidth: 13;
+>>>>>>> Stashed changes
 (Number Parameter) apartmentArea: apartmentLength: * apartmentWidth:;
-(Number Parameter) scalingFactor: 0.30;
+(Number Parameter) scalingFactor: apartmentWidth: * 0.30;
 (Number Parameter) apartmentHeight: 2.4;
 (Number Parameter) wallThickness: 0.3;
 (Number Parameter) floorThickness: 0.5;
@@ -80,8 +85,8 @@ DefClass: Apartment (ug_base_part);
   
    (Child) kitchen: {
   class; Kitchen;
-  counterLength; 4;
-  counterWidth; 1;
+  counterLength; 3;
+  counterWidth; 0.75;
   kitchenOrigin; apartmentOrigin: + vector(wallThickness:, apartmentWidth: -wallThickness: -child:counterWidth:-1 , 0);
   };
   
@@ -103,22 +108,59 @@ DefClass: Apartment (ug_base_part);
   };
 
 
-  (Child) room: {  
-  class; Room;
-  roomLength; 5;
-  roomWidth; 5; 
+  (Child) room1: {  
+  class; if (numberOfRooms: >= 1) then Room else NullDesign;
+  roomLength; 3;
+  roomWidth; 3; 
   roomHeight; apartmentHeight:;
-  roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room:roomLength:, 0, 0);
+  roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room1:roomLength:, 0, 0);
   };
+  (Child) windowRoom1: { 
+    class; if (numberOfRooms: >= 1) then ug_block else NullDesign;
+    Length; child:room1:roomLength: - 4*wallThickness:;
+    Width; wallThickness:;
+    Height; 1.5;
+    Origin; apartmentOrigin: + vector(apartmentLength: - child:room1:roomLength:/2 - child:windowRoom1:Length:/2, 0, 0.5);
+    Operation; Subtract;
+    Target; {outline:};
+    };
   
   
-  (Child) windowRoom: { 
-  class; ug_block;
-  Length; child:room:roomLength: - 4*wallThickness:;
+    (Child) room2: {  
+    class; if (numberOfRooms: >= 2) then Room else NullDesign;
+    roomLength; 3;
+    roomWidth; 3; 
+    roomHeight; apartmentHeight:;
+    roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room1:roomLength: -child:room2:roomLength:, 0, 0);
+    };
+    (Child) windowRoom2: { 
+      class; if (numberOfRooms: >= 2) then ug_block else NullDesign;
+      Length; child:room2:roomLength: - 4*wallThickness:;
+      Width; wallThickness:;
+      Height; 1.5;
+      Origin; apartmentOrigin: + vector(apartmentLength:/2 -child:room1:roomLength:/2, 0, 0.5);
+      Operation; Subtract;
+      Target; {outline:};
+      };
+
+    
+(Child) room3: {  
+  class; if (numberOfRooms: >= 3) then Room else NullDesign;
+  roomLength; 3;
+  roomWidth; 3; 
+  roomHeight; apartmentHeight:;
+  roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room1:roomLength: -child:room2:roomLength: -child:room3:roomLength:, 0, 0);
+};
+(Child) windowRoom3: { 
+  class; if (numberOfRooms: >= 3) then ug_block else NullDesign;
+  Length; child:room3:roomLength: - 4*wallThickness:;
   Width; wallThickness:;
   Height; 1.5;
-  Origin; apartmentOrigin: + vector(apartmentLength: - child:room:roomLength:/2 - child:windowRoom:Length:/2, 0, 0.5);
+  Origin; apartmentOrigin: + vector(apartmentLength:/2 -child:room1:roomLength:/2 -child:room2:roomLength:/2, 0, 0.5);
   Operation; Subtract;
   Target; {outline:};
   };
+     
+  
+ 
   
