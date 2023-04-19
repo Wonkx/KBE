@@ -4,7 +4,7 @@ if TYPE_CHECKING:
     from server import RequestHandler
 from models import Apartment, Storey, Building
 from DbHandler import insert, get_apartments_without_building, add_apartment_ids_to_building
-from DfaGenerator import create_dfas
+from DfaGenerator import create_dfas, confirm_dfa_presence
 
 
 def insert_parameters(html: str, context: dict) -> str:
@@ -96,6 +96,7 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         building.storeys = len(used_ids) // 4
         building.add_storeys(storeys)
 
+        confirm_dfa_presence(kwargs["DFA_PATH"])
         create_dfas(building, kwargs["DFA_PATH"])
         add_apartment_ids_to_building(used_ids)
 
