@@ -126,6 +126,9 @@ class Storey(Zone):
             if i < 4:
                 setattr(self, "ap" + str(i + 1) + "Length", apartment.apartmentLength)
                 setattr(self, "ap" + str(i + 1) + "Width", apartment.apartmentWidth)
+                setattr(self, "ap" + str(i + 1) + "HasNumberOfRooms", apartment.numberOfRooms)
+                setattr(self, "ap" + str(i + 1) + "HasBalcony", apartment.hasBalcony)
+
         self.apartments = apartments[:4]
 
     def to_knowledge_fusion(self) -> str:
