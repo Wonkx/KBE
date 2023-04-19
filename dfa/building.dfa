@@ -1,11 +1,7 @@
 #! UG/KF 17.0
 DefClass: Building (ug_base_part);
 (Point Parameter) buildingOrigin: point(0,0,0);
-<<<<<<< Updated upstream
-(Number Parameter) fireHeight: 3.0;
-=======
 (Number Parameter) fireHeight: 12.0;
->>>>>>> Stashed changes
 
 (Child) fire: {
   class; ug_cylinder;
