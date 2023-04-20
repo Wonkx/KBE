@@ -147,8 +147,10 @@ class Storey(Zone):
 
 @dataclass
 class Building(Zone):
-    buildingOrigin: str = "point(0,0,0)"
     storeys: list = field(default_factory=list)
+
+    def __post_init__(self) -> None:
+        self.add_dfa_parameters_as_class_attributes()
 
     def add_storeys(self, storeys: list[Storey]) -> None:
         self.storeys = storeys
