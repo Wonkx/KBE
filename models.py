@@ -39,16 +39,16 @@ class Zone(ABC):
         for attribute, value in zip(attributes, values):
             setattr(self, attribute, value)
 
+    def get_class_string_attributes(self) -> dict[str, str]:
+        return {k: v for k, v in self.__dict__.items() if isinstance(v, str)}
+
     def to_knowledge_fusion(self) -> str:
         dfa = get_dfa_as_string(self.__class__.__name__)
         params = self.get_class_string_attributes()
         return insert_parameters(dfa, params)
 
-    def get_class_string_attributes(self) -> dict[str, str]:
-        return {k: v for k, v in self.__dict__.items() if isinstance(v, str)}
-
     def to_knowledge_fusion_child(self, childNumber: int) -> str:
-        params = [k + "; " + v + ";\n" for k, v in self.get_class_string_attributes()]
+        params = [k + "; " + v + ";\n" for k, v in self.get_class_string_attributes().items()]
         child = "(Child) " + self.__class__.__name__ + str(childNumber) \
             + ": {\nclass; " + self.__class__.__name__ + ";\n" \
             + "".join(params) \
@@ -65,13 +65,6 @@ class Room(Zone):
 
     def __post_init__(self) -> None:
         self.add_dfa_parameters_as_class_attributes()
-
-    def to_knowledge_fusion_child(self, childNumber: int) -> str:
-        child = "(Child) " + self.__class__.__name__ + str(childNumber) \
-            + ": {\nclass; " + self.__class__.__name__ + ";\n" \
-            + "".join([(field.name + ": " + str(getattr(self, field.name)) + ";\n") for field in fields(self)]) \
-            + "};\n\n"
-        return child
 
     def to_sparql_insert(self, id: int) -> str:
         pass
@@ -192,5 +185,4 @@ class Building(Zone):
         pass
 
 if __name__ == '__main__':
-    r = Room()
-    print(r.to_knowledge_fusion())
+    pass
