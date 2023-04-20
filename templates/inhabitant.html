@@ -1,4 +1,4 @@
-<html>
+<!--<html>
 <head>
 <title>{% page_title %}</title>
 </head>
@@ -13,4 +13,110 @@
     </form>
 
 </body>
+</html>-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% page_title %}</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 512px;
+        margin: 16px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      }
+      h2 {
+        margin-top: 0;
+        font-weight: normal;
+        color: #333;
+      }
+      form {
+        margin-top: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      input[type=text] {
+        margin: 2px 0 10px 0;
+      }
+      input[type=range] {
+        width: 80%;
+        max-width: 256px;
+        padding: 10px 0;
+        border-radius: 5px;
+        border: none;
+        background-color: #f9f9f9;
+        margin: 0;
+      }
+      input[type=checkbox] {
+        width: auto;
+        margin: 0;
+      }
+      input[type=submit] {
+        display: block;
+        margin-top: 20px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #333;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      input[type=submit]:hover {
+        background-color: #555;
+      }
+      .range-label {
+        position: absolute;
+        transform: translate(10px, 10px);
+        font-size: 14px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Product Configurator</h2>
+      <form action="{% url %}" method="post">
+        <label for="numberOfRooms">Number of rooms in your apartment:</label>
+        <input type="range" name="numberOfRooms" id="numberOfRooms" min="0" max="4" value="1">
+        <span class="range-label" id="numberOfRoomsLabel">1 room</span>
+        <label for="area">Apartment size [sq m]:</label>
+        <input type="text" name="area" id="area" value="20">
+        <label for="balcony">Balcony:</label>
+        <input type="checkbox" name="balcony" id="balcony" value="balcony">
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    <script>
+        // Force the apartment size input to be numeric
+        let apartmentSizeInput = document.getElementById("area");
+        apartmentSizeInput.addEventListener("input", function(event) {
+            if (isNaN(apartmentSizeInput.value)) {
+                let size = apartmentSizeInput.value.slice(0, -1);
+                apartmentSizeInput.value = isNaN(size) ? "" : size;
+            }
+        });
+
+        // Add a label for the range slider value
+        let numberOfRoomsSlider = document.getElementById("numberOfRooms");
+        let numberOfRoomsLabel = document.getElementById("numberOfRoomsLabel");
+        numberOfRoomsLabel.innerHTML = numberOfRoomsSlider.value;
+        numberOfRoomsSlider.addEventListener("input", function(event) {
+            numberOfRoomsLabel.innerHTML = numberOfRoomsSlider.value;
+        });
+      </script>
+  </body>
 </html>
+
