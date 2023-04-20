@@ -126,11 +126,6 @@ class Storey(Zone):
 
         self.apartments = apartments[:4]
 
-    def to_knowledge_fusion(self) -> str:
-        dfa = get_dfa_as_string(self.__class__.__name__)
-        params = dict((field, getattr(self, field)) for field in self.__dict__.keys() if field != "apartments")
-        return insert_parameters(dfa, params)
-
     def to_knowledge_fusion_child(self, childNumber: int) -> str:
         storeyHeight, floorThickness, roofThickness = float(self.storeyHeight), float(self.floorThickness), float(self.roofThickness)
         self.storeyOrigin = self.storeyOrigin[:self.storeyOrigin.rfind(',') + 1] \
