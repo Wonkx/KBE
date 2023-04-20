@@ -47,8 +47,13 @@ class Zone(ABC):
     def get_class_string_attributes(self) -> dict:
         return {k: v for k, v in self.__dict__.items() if isinstance(v, str)}
 
-    def to_knowledge_fusion_child(self) -> str:
-        pass
+    def to_knowledge_fusion_child(self, childNumber: int) -> str:
+        params = [k + "; " + v + ";\n" for k, v in self.get_class_string_attributes()]
+        child = "(Child) " + self.__class__.__name__ + str(childNumber) \
+            + ": {\nclass; " + self.__class__.__name__ + ";\n" \
+            + "".join(params) \
+            + "};\n\n"
+        return child
 
     @abstractmethod
     def to_sparql_insert(self, id: int) -> str:
