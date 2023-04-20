@@ -117,12 +117,11 @@ class Storey(Zone):
         self.add_dfa_parameters_as_class_attributes()
 
     def add_apartments(self, apartments: list[Apartment]) -> None:
-        for i, apartment in enumerate(apartments):
-            if i < 4:
-                setattr(self, "ap" + str(i + 1) + "Length", apartment.apartmentLength)
-                setattr(self, "ap" + str(i + 1) + "Width", apartment.apartmentWidth)
-                setattr(self, "ap" + str(i + 1) + "HasNumberOfRooms", apartment.numberOfRooms)
-                setattr(self, "ap" + str(i + 1) + "HasBalcony", apartment.hasBalcony)
+        for i, apartment in enumerate(apartments[:4]):
+            setattr(self, "ap" + str(i + 1) + "Length", apartment.apartmentLength)
+            setattr(self, "ap" + str(i + 1) + "Width", apartment.apartmentWidth)
+            setattr(self, "ap" + str(i + 1) + "HasNumberOfRooms", apartment.numberOfRooms)
+            setattr(self, "ap" + str(i + 1) + "HasBalcony", apartment.hasBalcony)
 
         self.apartments = apartments[:4]
 
