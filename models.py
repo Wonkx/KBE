@@ -86,15 +86,10 @@ class Apartment(Zone):
         self.rooms = rooms
 
     def to_knowledge_fusion(self) -> str:
-        ignore = ["rooms"]
-        dfa = get_dfa_as_string(self.__class__.__name__)
-        params = dict((field, getattr(self, field)) for field in self.__dict__.keys() if field not in ignore)
-        params["hasBalcony"] = "TRUE" if params["hasBalcony"] else "FALSE"
-        dfa = insert_parameters(dfa, params)
+        dfa = super().to_knowledge_fusion()
         for i, room in enumerate(self.rooms):
-            appendage = room.to_knowledge_fusion_child(i + 1)
-            dfa += appendage
-        return dfa    
+            dfa += room.to_knowledge_fusion_child(i + 1)
+        return dfa
 
     def to_sparql_insert(self, id: int) -> str:
         area = "{:.2f}".format(float(self.apartmentLength) * float(self.apartmentWidth))
