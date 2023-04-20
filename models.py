@@ -41,8 +41,11 @@ class Zone(ABC):
 
     def to_knowledge_fusion(self) -> str:
         dfa = get_dfa_as_string(self.__class__.__name__)
-        params = {k: v for k, v in self.__dict__.items() if isinstance(v, str)}
+        params = self.get_class_string_attributes()
         return insert_parameters(dfa, params)
+
+    def get_class_string_attributes(self) -> dict:
+        return {k: v for k, v in self.__dict__.items() if isinstance(v, str)}
 
     def to_knowledge_fusion_child(self) -> str:
         pass
