@@ -4,6 +4,7 @@ DefClass: Apartment (ug_base_part);
 (Number Parameter) apartmentWidth: 8;
 (Number Parameter) apartmentArea: apartmentLength: * apartmentWidth:;
 (Number Parameter) scalingFactor: apartmentLength: * 0.20;
+(Number Parameter) scalingFactorForSmallAp: apartmentLength: * 0.40;
 (Number Parameter) apartmentHeight: 2.4;
 (Number Parameter) wallThickness: 0.3;
 (Number Parameter) floorThickness: 0.5;
@@ -106,13 +107,13 @@ DefClass: Apartment (ug_base_part);
 
   (Child) room1: {  
   class; if (numberOfRooms: >= 1) then Room else NullDesign;
-  roomLength; scalingFactor:;
-  roomWidth; scalingFactor:; 
+  roomLength; if (apartmentArea: < 60) then scalingFactorForSmallAp: else scalingFactor:;
+  roomWidth; if (apartmentArea: < 60) then scalingFactorForSmallAp: else scalingFactor:; 
   roomHeight; apartmentHeight:;
   roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room1:roomLength:, 0, 0);
   };
   (Child) windowRoom1: { 
-    class; if (numberOfRooms: >= 1) then ug_block else NullDesign;
+    class; if (numberOfRooms: >= 1 & apartmentArea: >= 0) then ug_block else NullDesign;
     Length; child:room1:roomLength: - 4*wallThickness:;
     Width; wallThickness:;
     Height; 1.5;
@@ -123,14 +124,14 @@ DefClass: Apartment (ug_base_part);
   
   
     (Child) room2: {  
-    class; if (numberOfRooms: >= 2) then Room else NullDesign;
+    class; if (numberOfRooms: >= 2 & apartmentArea: >= 60) then Room else NullDesign;
     roomLength; scalingFactor:;
     roomWidth; scalingFactor:; 
     roomHeight; apartmentHeight:;
     roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room1:roomLength: -child:room2:roomLength:, 0, 0);
     };
     (Child) windowRoom2: { 
-      class; if (numberOfRooms: >= 2) then ug_block else NullDesign;
+      class; if (numberOfRooms: >= 2 & apartmentArea: >= 60) then ug_block else NullDesign;
       Length; child:room2:roomLength: - 4*wallThickness:;
       Width; wallThickness:;
       Height; 1.5;
@@ -141,14 +142,14 @@ DefClass: Apartment (ug_base_part);
 
     
 (Child) room3: {  
-  class; if (numberOfRooms: >= 3) then Room else NullDesign;
+  class; if (numberOfRooms: >= 3 & apartmentArea: >= 80) then Room else NullDesign;
   roomLength; scalingFactor:;
   roomWidth; scalingFactor:; 
   roomHeight; apartmentHeight:;
   roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room1:roomLength: -child:room2:roomLength: -child:room3:roomLength:, 0, 0);
 };
 (Child) windowRoom3: { 
-  class; if (numberOfRooms: >= 3) then ug_block else NullDesign;
+  class; if (numberOfRooms: >= 3 & apartmentArea: >= 80) then ug_block else NullDesign;
   Length; child:room3:roomLength: - 4*wallThickness:;
   Width; wallThickness:;
   Height; 1.5;
@@ -159,14 +160,14 @@ DefClass: Apartment (ug_base_part);
 
 
 (Child) room4: {  
-  class; if (numberOfRooms: >= 4) then Room else NullDesign;
+  class; if (numberOfRooms: >= 4 & apartmentArea: >= 100) then Room else NullDesign;
   roomLength; scalingFactor:;
-  roomWidth; scalingFactor:; 
+  roomWidth; scalingFactor:;  
   roomHeight; apartmentHeight:;
   roomOrigin; apartmentOrigin: + vector(apartmentLength: -child:room1:roomLength: -child:room2:roomLength: -child:room3:roomLength: -child:room3:roomLength:, 0, 0);
 };
 (Child) windowRoom4: { 
-  class; if (numberOfRooms: >= 4) then ug_block else NullDesign;
+  class; if (numberOfRooms: >= 4 & apartmentArea: >= 100) then ug_block else NullDesign;
   Length; child:room3:roomLength: - 4*wallThickness:;
   Width; wallThickness:;
   Height; 1.5;
