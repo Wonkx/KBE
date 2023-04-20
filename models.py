@@ -160,17 +160,13 @@ class Building(Zone):
         for storey in self.storeys:
             storeyHeight, floorThickness, roofThickness = float(storey.storeyHeight), float(storey.floorThickness), float(storey.roofThickness)
             height += (storeyHeight + floorThickness + roofThickness)
-
         return str(height)
 
     def to_knowledge_fusion(self) -> str:
-        dfa = get_dfa_as_string(self.__class__.__name__)
-        params = dict((field.name, getattr(self, field.name)) for field in fields(self) if field.name != "storeys")
-        params["elevatorHeight"] = self.get_elevator_height()
-        dfa = insert_parameters(dfa, params)
+        self.elevatorHeight = self.get_elevator_height()
+        dfa = super().to_knowledge_fusion()
         for i, storey in enumerate(self.storeys):
-            appendage = storey.to_knowledge_fusion_child(i + 1)
-            dfa += appendage
+            dfa += storey.to_knowledge_fusion_child(i + 1)
         return dfa    
 
     def to_sparql_insert(self, id: int) -> str:
