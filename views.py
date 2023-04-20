@@ -120,7 +120,7 @@ def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:
             balcony, numberOfRooms, size = False, 2, 64
         
         apartment = Apartment()
-        apartment.hasBalcony = str(balcony)
+        apartment.hasBalcony = str(balcony).upper()
         apartment.numberOfRooms = str(numberOfRooms)
         apartment.apartmentLength = str(size / float(apartment.apartmentWidth))
         apartment.add_rooms()
