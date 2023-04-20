@@ -39,8 +39,12 @@ class Zone(ABC):
         for attribute, value in zip(attributes, values):
             setattr(self, attribute, value)
 
-    @abstractmethod
     def to_knowledge_fusion(self) -> str:
+        dfa = get_dfa_as_string(self.__class__.__name__)
+        params = {k: v for k, v in self.__dict__.items() if isinstance(v, str)}
+        return insert_parameters(dfa, params)
+
+    def to_knowledge_fusion_child(self) -> str:
         pass
 
     @abstractmethod
@@ -49,18 +53,10 @@ class Zone(ABC):
 
 
 @dataclass
-class Room:
-    roomLength: float | str = 10
-    roomWidth: float | str = 10
-    roomHeight: float | str = 2.4
-    wallThickness: float | str = 0.3
-    doorHeight: float | str = 1.9
-    roomOrigin: str = "point(0,0,0)"
-    
-    def to_knowledge_fusion(self) -> str:
-        dfa = get_dfa_as_string(self.__class__.__name__)
-        params = dict((field.name, getattr(self, field.name)) for field in fields(self))
-        return insert_parameters(dfa, params)
+class Room(Zone):
+
+    def __post_init__(self) -> None:
+        self.add_dfa_parameters_as_class_attributes()
 
     def to_knowledge_fusion_child(self, childNumber: int) -> str:
         child = "(Child) " + self.__class__.__name__ + str(childNumber) \
@@ -68,6 +64,9 @@ class Room:
             + "".join([(field.name + ": " + str(getattr(self, field.name)) + ";\n") for field in fields(self)]) \
             + "};\n\n"
         return child
+
+    def to_sparql_insert(self, id: int) -> str:
+        pass
 
 @dataclass
 class Apartment(Zone):
@@ -185,4 +184,5 @@ class Building(Zone):
         pass
 
 if __name__ == '__main__':
-    pass
+    r = Room()
+    print(r.to_knowledge_fusion())
