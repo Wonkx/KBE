@@ -1,4 +1,4 @@
-from dataclasses import dataclass, fields, field
+from dataclasses import dataclass, field
 from abc import ABC, abstractmethod
 
 def insert_parameters(dfa: str, parameters: dict) -> str:
