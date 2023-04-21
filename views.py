@@ -99,9 +99,11 @@ def builder(request: RequestHandler, **kwargs: dict[str, any]) -> str:
         confirm_dfa_presence(kwargs["DFA_PATH"])
         create_dfas(building, kwargs["DFA_PATH"])
         add_apartment_ids_to_building(used_ids)
-
+    
     html = get_html_as_string("builder")
-    context = {"page_title": "builder", "url": "#"}
+    apartmentCount = len(get_apartments_without_building(-1))
+    storeyCount = apartmentCount // 4
+    context = {"page_title": "builder", "url": "#", "apartmentCount": str(apartmentCount), "storeyCount": str(storeyCount)}
     return insert_parameters(html, context)
 
 def inhabitant(request: RequestHandler, **kwargs: dict[str, any]) -> str:

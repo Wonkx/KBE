@@ -32,7 +32,7 @@ def test_connection() -> bool:
 def insert(zone: Zone) -> bool:
     id = count(zone) + 1
     query = zone.to_sparql_insert(id)
-
+    
     try:
         r = requests.post(url = get_update_url(), data = query)
         return True
@@ -73,7 +73,7 @@ def get_apartments_without_building(limit: int) -> list[dict]:
             """.format(limit=limit)
 
     if (limit < 1):
-        query = "\n".join(query.split("\n")[:-1])
+        query = "\n".join(query.split("\n")[:-2])
 
     try:
         response = requests.get(url = get_query_url(), params = {"query": query}) 

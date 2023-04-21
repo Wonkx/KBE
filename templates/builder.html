@@ -17,7 +17,7 @@
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       }
-      h2 {
+      h2, h3 {
         margin-top: 0;
         font-weight: normal;
         color: #333;
@@ -52,6 +52,7 @@
   <body>
     <div class="container">
       <h2>Product Configurator</h2>
+      <p>There are currently {% apartmentCount %} unused apartments, which could result in up to {% storeyCount %} storeys.</p>
       <form action="{% url %}" method="post">
         <label for="numberOfStoreys">Enter maximum number of storeys:</label>
         <input type="text" name="numberOfStoreys" id="numberOfStoreys" value="1">
