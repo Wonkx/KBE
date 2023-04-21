@@ -1,7 +1,7 @@
 #! UG/KF 17.0
 DefClass: Building (ug_base_part);
 (Point Parameter) buildingOrigin: point(0,0,0);
-(Number Parameter) elevatorHeight: 9.0;
+(Number Parameter) elevatorHeight: 3.0;
 
 (Child) elevator: {
   class; ug_block;
