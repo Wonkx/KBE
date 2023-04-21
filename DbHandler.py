@@ -41,10 +41,10 @@ def insert(zone: Zone) -> bool:
 
 def count(zone: Zone) -> int:
     query = """
-    PREFIX kbe:<http://www.my-kbe.com/building.owl#>
+    PREFIX bot:<https://w3id.org/bot#>
     SELECT ?subject ?predicate ?object
     WHERE {{
-        ?subject a kbe:{zone}.
+        ?subject a bot:{zone}.
     }}
     """.format(zone=zone.__class__.__name__)
 
@@ -58,14 +58,14 @@ def count(zone: Zone) -> int:
 
 def get_apartments_without_building(limit: int) -> list[dict]:
     query = """
-            PREFIX kbe:<http://www.my-kbe.com/building.owl#>
+            PREFIX bot:<https://w3id.org/bot#>
             SELECT ?apartments ?area ?balcony ?rooms
             WHERE {{
-                ?apartments a kbe:Apartment.
-                ?apartments kbe:hasArea ?area.
-                ?apartments kbe:hasBalcony ?balcony.
-                ?apartments kbe:hasRooms ?rooms.
-                ?apartments kbe:hasBuilding ?built.
+                ?apartments a bot:Apartment.
+                ?apartments bot:hasArea ?area.
+                ?apartments bot:hasBalcony ?balcony.
+                ?apartments bot:hasRooms ?rooms.
+                ?apartments bot:hasBuilding ?built.
                 FILTER (?built = false).
             }}
             ORDER BY DESC(?area)
@@ -84,18 +84,18 @@ def get_apartments_without_building(limit: int) -> list[dict]:
 
 def add_apartment_ids_to_building(ids: list[int]) -> None:
 
-    subjects = "\n".join(["(kbe:apartment" + str(id) + ")" for id in ids])
+    subjects = "\n".join(["(bot:apartment" + str(id) + ")" for id in ids])
 
     query = """
-    PREFIX kbe:<http://www.my-kbe.com/building.owl#>
+    PREFIX bot:<https://w3id.org/bot#>
     DELETE {{
-        ?a kbe:hasBuilding false.
+        ?a bot:hasBuilding false.
     }}
     INSERT {{
-        ?a kbe:hasBuilding true.
+        ?a bot:hasBuilding true.
     }}
     WHERE {{
-        ?a kbe:hasBuilding false.
+        ?a bot:hasBuilding false.
         VALUES (?a) {{
             {subjects}
         }}

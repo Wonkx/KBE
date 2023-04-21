@@ -95,13 +95,13 @@ class Apartment(Zone):
         area = "{:.2f}".format(float(self.apartmentLength) * float(self.apartmentWidth))
         hasBalcony, numberOfRooms = str(self.hasBalcony).lower(), str(self.numberOfRooms)
         query = """
-                PREFIX kbe:<http://www.my-kbe.com/building.owl#>
+                PREFIX bot:<https://w3id.org/bot#>
                 INSERT {{
-                    kbe:apartment{id} a kbe:Apartment.
-                    kbe:apartment{id} kbe:hasArea "{area}"^^<http://www.w3.org/2001/XMLSchema#float>.
-                    kbe:apartment{id} kbe:hasBalcony "{hasBalcony}"^^<http://www.w3.org/2001/XMLSchema#boolean>.
-                    kbe:apartment{id} kbe:hasRooms "{numberOfRooms}"^^<http://www.w3.org/2001/XMLSchema#int>.
-                    kbe:apartment{id} kbe:hasBuilding "false"^^<http://www.w3.org/2001/XMLSchema#boolean>.
+                    bot:apartment{id} a bot:Apartment.
+                    bot:apartment{id} bot:hasArea "{area}"^^<http://www.w3.org/2001/XMLSchema#float>.
+                    bot:apartment{id} bot:hasBalcony "{hasBalcony}"^^<http://www.w3.org/2001/XMLSchema#boolean>.
+                    bot:apartment{id} bot:hasRooms "{numberOfRooms}"^^<http://www.w3.org/2001/XMLSchema#int>.
+                    bot:apartment{id} bot:hasBuilding "false"^^<http://www.w3.org/2001/XMLSchema#boolean>.
                 }}
                 WHERE {{
                 }}
