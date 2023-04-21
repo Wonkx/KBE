@@ -72,11 +72,13 @@ def get_apartments_without_building(limit: int) -> list[dict]:
             LIMIT {limit}
             """.format(limit=limit)
 
+    if (limit < 1):
+        query = "\n".join(query.split("\n")[:-1])
+
     try:
         response = requests.get(url = get_query_url(), params = {"query": query}) 
         data = response.json()
         return [d for d in data["results"]['bindings']]
-        #return [int(d["apartments"]["value"][-1]) for d in data["results"]['bindings']]
     except:
         return []
 
