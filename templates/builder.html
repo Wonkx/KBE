@@ -1,15 +1,78 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>{% page_title %}</title>
-</head>
-<body>
+  <head>
+    <title>{% page_title %}</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 512px;
+        margin: 16px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      }
+      h2 {
+        margin-top: 0;
+        font-weight: normal;
+        color: #333;
+      }
+      form {
+        margin-top: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      input[type=text] {
+        margin: 2px 0 10px 0;
+      }
+      input[type=submit] {
+        display: block;
+        margin-top: 20px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #333;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      input[type=submit]:hover {
+        background-color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Product Configurator</h2>
+      <form action="{% url %}" method="post">
+        <label for="numberOfStoreys">Enter maximum number of storeys:</label>
+        <input type="text" name="numberOfStoreys" id="numberOfStoreys" value="1">
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    <script>
 
-    <h2>Product Configurator</h2>
-    <form action="{% url %}" method="post">
-        <p>Max number of storeys:</p><br><input type="text" name="numberOfStoreys" value="1">
-        <br><br><input type="submit" value="Submit">
-    </form>
+        function stringIsPositiveInteger(str) {
+            return /^(|\+?[1-9]\d*)$/.test(str);
+        }
 
-</body>
+        // Force the apartment size input to be numeric
+        let numberOfStoreysInput = document.getElementById("numberOfStoreys");
+        numberOfStoreysInput.addEventListener("input", function(event) {
+            if (!stringIsPositiveInteger(numberOfStoreysInput.value)) {
+                let storeys = numberOfStoreysInput.value.slice(0, -1);
+                numberOfStoreysInput.value = stringIsPositiveInteger(storeys) ? storeys : "1";
+            }
+        });
+    </script>
+  </body>
 </html>
+
