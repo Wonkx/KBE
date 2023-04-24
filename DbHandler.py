@@ -65,8 +65,8 @@ def get_apartments_without_building(limit: int) -> list[dict]:
                 ?apartments bot:hasArea ?area.
                 ?apartments bot:hasBalcony ?balcony.
                 ?apartments bot:hasRooms ?rooms.
-                ?apartments bot:hasBuilding ?built.
-                FILTER (?built = false).
+                ?apartments bot:hasBuilding ?buildingId.
+                FILTER (?buildingId = 0).
             }}
             ORDER BY DESC(?area)
             LIMIT {limit}
