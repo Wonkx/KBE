@@ -120,7 +120,9 @@ def get_max_building_id() -> int:
     """
 
     try:
-        id = int(requests.post(url = get_query_url(), params = {"query": query}))
+        response = requests.get(url = get_query_url(), params = {"query": query}) 
+        data = response.json()
+        return int(data["results"]['bindings'][0]['Id']['value'])
     except:
         return 0
 
