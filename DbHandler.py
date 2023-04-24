@@ -85,22 +85,23 @@ def get_apartments_without_building(limit: int) -> list[dict]:
 def add_apartment_ids_to_building(ids: list[int]) -> None:
 
     subjects = "\n".join(["(bot:apartment" + str(id) + ")" for id in ids])
+    maxBuildingId = get_max_building_id()
 
     query = """
     PREFIX bot:<https://w3id.org/bot#>
     DELETE {{
-        ?a bot:hasBuilding false.
+        ?a bot:hasBuilding "0"^^<http://www.w3.org/2001/XMLSchema#int>.
     }}
     INSERT {{
-        ?a bot:hasBuilding true.
+        ?a bot:hasBuilding "{id}"^^<http://www.w3.org/2001/XMLSchema#int>.
     }}
     WHERE {{
-        ?a bot:hasBuilding false.
+        ?a bot:hasBuilding "0"^^<http://www.w3.org/2001/XMLSchema#int>.
         VALUES (?a) {{
             {subjects}
         }}
     }}
-    """.format(subjects=subjects)
+    """.format(subjects=subjects, id=maxBuildingId + 1)
 
     try:
         apartments = requests.post(url = get_update_url(), data = query )
