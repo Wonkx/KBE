@@ -101,7 +101,7 @@ class Apartment(Zone):
                     bot:apartment{id} bot:hasArea "{area}"^^<http://www.w3.org/2001/XMLSchema#float>.
                     bot:apartment{id} bot:hasBalcony "{hasBalcony}"^^<http://www.w3.org/2001/XMLSchema#boolean>.
                     bot:apartment{id} bot:hasRooms "{numberOfRooms}"^^<http://www.w3.org/2001/XMLSchema#int>.
-                    bot:apartment{id} bot:hasBuilding "false"^^<http://www.w3.org/2001/XMLSchema#boolean>.
+                    bot:apartment{id} bot:hasBuilding "0"^^<http://www.w3.org/2001/XMLSchema#boolean>.
                 }}
                 WHERE {{
                 }}
