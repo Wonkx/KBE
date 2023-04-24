@@ -107,5 +107,21 @@ def add_apartment_ids_to_building(ids: list[int]) -> None:
     except:
         pass
 
+
+def get_max_building_id() -> int:
+    query = """
+    PREFIX bot:<https://w3id.org/bot#>
+    SELECT (MAX(?buildingId))
+    WHERE {{
+        ?apartments a bot:Apartment.
+        ?apartments bot:hasBuilding ?buildingId.
+    }}
+    """
+
+    try:
+        id = int(requests.post(url = get_query_url(), params = {"query": query}))
+    except:
+        return 0
+
 if __name__ == '__main__':
     pass
