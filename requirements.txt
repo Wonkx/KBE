@@ -1,0 +1,5 @@
+matplotlib==3.4.2
+numpy==1.22.0
+pyephem==9.99
+requests==2.22.0
+
