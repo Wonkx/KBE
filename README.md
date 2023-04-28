@@ -8,3 +8,4 @@ To run this project, you'll need to have the following installed:
 Once you have these dependencies installed, you can clone this repository and navigate to the project directory.
 
 Projects is in releation to TMM4275
+LINK: https://www.ntnu.no/studier/emner/TMM4275#tab=omEmnet
