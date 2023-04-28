@@ -2,13 +2,27 @@ from matplotlib.patches import Polygon
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+import ephem
+import math
+
+def get_sun_angle(lat, lon, date_time):
+    observer = ephem.Observer()
+    observer.lat = str(lat)
+    observer.lon = str(lon)
+    observer.date = date_time
+
+    sun = ephem.Sun(observer)
+    sun.compute(observer)
+
+    altitude = math.degrees(sun.alt)
+    return altitude
 
 #initial polygon
 LENGTH = 50
 WIDTH = 50
 HEIGHT = 20
 ROTATION = np.pi/3
-SUNANGLE = np.pi/10
+SUNANGLE = get_sun_angle(60.7128, -74.0060, '2019/10/10 12:00:00')
 
 #rotating building
 building = [(0,0), (LENGTH,0),  (LENGTH, WIDTH), (0,WIDTH)]
